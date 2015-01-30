@@ -48,22 +48,22 @@ apt-get install php5-curl -y
 php5enmod mcrypt
 
 echo "Create filesystem"
-sudo "$username" -c "mkdir ~/$sitename"
-sudo "$username" -c "wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P ~/$sitename/"
-sudo "$username" -c "tar -xvzf ~/$sitename/drupal-7.34.tar.gz"
-sudo "$username" -c "rm ~/$sitename/drupal-7.34.tar.gz"
-sudo "$username" -c "mv ~/$sitename/drupal-7.34.tar.gz ~/$sitename/httpdocs"
-sudo "$username" -c "sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf"
-sudo "$username" -c "rm /etc/nginx/sites-enabled/default"
-sudo "$username" -c "rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/"
-sudo "$username" -c "mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com"
-sudo "$username" -c "sed -i 's/suhaib/$username/g' /etc/nginx/sites-enabled/"$sitename".com"
-sudo "$username" -c "sed -i 's/uitoux/$sitename/g' /etc/nginx/sites-enabled/"$sitename".com"
-sudo "$username" -c "sed -i 's/www-data/$username/g' /etc/php5/fpm/pool.d/www.conf"
-sudo "$username" -c "sed -i 's/www-data/$username/g' /etc/php5/fpm/php-fpm.conf"
-sudo "$username" -c "ln -s /usr/share/phpmyadmin ~/"$sitename"/httpdocs"
-sudo "$username" -c "mv ~/"$sitename"/httpdocs/sites/default ~/"$sitename"/httpdocs/sites/"$sitename".com"
-sudo "$username" -c "ln -s ~/"$sitename"/httpdocs/sites/"$sitename".com ~/"$sitename"/httpdocs/sites/default"
+su "$username" -c 'mkdir ~/$sitename'
+su "$username" -c 'wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P ~/$sitename/'
+su "$username" -c 'tar -xvzf ~/$sitename/drupal-7.34.tar.gz'
+su "$username" -c 'rm ~/$sitename/drupal-7.34.tar.gz'
+su "$username" -c 'mv ~/$sitename/drupal-7.34.tar.gz ~/$sitename/httpdocs'
+su "$username" -c 'sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf'
+su "$username" -c 'rm /etc/nginx/sites-enabled/default'
+su "$username" -c 'rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/'
+su "$username" -c 'mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com'
+su "$username" -c 'sed -i 's/suhaib/$username/g' /etc/nginx/sites-enabled/"$sitename".com'
+su "$username" -c 'sed -i 's/uitoux/$sitename/g' /etc/nginx/sites-enabled/"$sitename".com'
+su "$username" -c 'sed -i 's/www-data/$username/g' /etc/php5/fpm/pool.d/www.conf'
+su "$username" -c 'sed -i 's/www-data/$username/g' /etc/php5/fpm/php-fpm.conf'
+su "$username" -c 'ln -s /usr/share/phpmyadmin ~/"$sitename"/httpdocs'
+su "$username" -c 'mv ~/"$sitename"/httpdocs/sites/default ~/"$sitename"/httpdocs/sites/"$sitename".com'
+su "$username" -c 'ln -s ~/"$sitename"/httpdocs/sites/"$sitename".com ~/"$sitename"/httpdocs/sites/default'
 #sudo "$username"
 #cd ~
 #mkdir "$sitename"
@@ -99,8 +99,8 @@ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - 
 chsh -s 'which zsh'
 
 echo "Changing username shell to ZSH"
-sudo "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
-sudo "$username" -c "chsh -s 'which zsh'"
+su "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
+su "$username" -c "chsh -s 'which zsh'"
 #wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 #chsh -s 'which zsh'
 #exit
