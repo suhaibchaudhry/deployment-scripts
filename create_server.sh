@@ -17,11 +17,11 @@ read usernamepassword
 userpass="$usernamepassword"
 
 echo "Changing password for root"
-echo -e "$rootpass\n$rootpass" | passwd root
+echo root:$rootpass | /usr/sbin/chpasswd
 
 echo "Creating a new user"
-useradd -s /bin/bash -m -d /home/"$username" -c "$name" -g "$username" "$username"
-echo -e "$userpass\n$userpass" | passwd "$username"
+useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
+echo $username:$userpass | /usr/sbin/chpasswd
 
 echo "Installing LEMP stack"
 apt-add-repository ppa:nginx/stable -y
@@ -48,29 +48,45 @@ apt-get install php5-curl -y
 php5enmod mcrypt
 
 echo "Create filesystem"
-sudo "$username"
-cd ~
-mkdir "$sitename"
-cd "$sitename"
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz
-tar -xvzf drupal-7.34.tar.gz
-rm drupal-7.34.tar.gz
-mv drupal-7.34 httpdocs
-sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf
-cd /etc/nginx/sites-enabled/
-rm default
-rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
-mv sample_se.com "$sitename".com
-sed -i 's/suhaib/$username/g' /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/uitoux/$sitename/g' /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/www-data/$username/g' /etc/php5/fpm/pool.d/www.conf
-sed -i 's/www-data/$username/g' /etc/php5/fpm/php-fpm.conf
-cd ~/"$sitename"/httpdocs
-ln -s /usr/share/phpmyadmin .
-cd sites
-mv default "$sitename".com
-ln -s "$sitename".com default
-exit
+sudo "$username" -c "mkdir ~/$sitename"
+sudo "$username" -c "wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P ~/$sitename/"
+sudo "$username" -c "tar -xvzf ~/$sitename/drupal-7.34.tar.gz"
+sudo "$username" -c "rm ~/$sitename/drupal-7.34.tar.gz"
+sudo "$username" -c "mv ~/$sitename/drupal-7.34.tar.gz ~/$sitename/httpdocs"
+sudo "$username" -c "sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf"
+sudo "$username" -c "rm /etc/nginx/sites-enabled/default"
+sudo "$username" -c "rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/"
+sudo "$username" -c "mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com"
+sudo "$username" -c "sed -i 's/suhaib/$username/g' /etc/nginx/sites-enabled/"$sitename".com"
+sudo "$username" -c "sed -i 's/uitoux/$sitename/g' /etc/nginx/sites-enabled/"$sitename".com"
+sudo "$username" -c "sed -i 's/www-data/$username/g' /etc/php5/fpm/pool.d/www.conf"
+sudo "$username" -c "sed -i 's/www-data/$username/g' /etc/php5/fpm/php-fpm.conf"
+sudo "$username" -c "ln -s /usr/share/phpmyadmin ~/"$sitename"/httpdocs"
+sudo "$username" -c "mv ~/"$sitename"/httpdocs/sites/default ~/"$sitename"/httpdocs/sites/"$sitename".com"
+sudo "$username" -c "ln -s ~/"$sitename"/httpdocs/sites/"$sitename".com ~/"$sitename"/httpdocs/sites/default"
+#sudo "$username"
+#cd ~
+#mkdir "$sitename"
+#cd "$sitename"
+#wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz
+#tar -xvzf drupal-7.34.tar.gz
+#rm drupal-7.34.tar.gz
+#mv drupal-7.34 httpdocs
+#sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf
+#cd /etc/nginx/sites-enabled/
+#rm default
+#rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
+#mv sample_se.com "$sitename".com
+#sed -i 's/suhaib/$username/g' /etc/nginx/sites-enabled/"$sitename".com
+#sed -i 's/uitoux/$sitename/g' /etc/nginx/sites-enabled/"$sitename".com
+#sed -i 's/www-data/$username/g' /etc/php5/fpm/pool.d/www.conf
+#sed -i 's/www-data/$username/g' /etc/php5/fpm/php-fpm.conf
+#cd ~/"$sitename"/httpdocs
+#ln -s /usr/share/phpmyadmin .
+#cd sites
+#mv default "$sitename".com
+#ln -s "$sitename".com default
+#exit
 
 echo "Restart all services"
 service nginx restart
@@ -83,8 +99,9 @@ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - 
 chsh -s 'which zsh'
 
 echo "Changing username shell to ZSH"
-sudo "$username"
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-chsh -s 'which zsh'
-exit
+sudo "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
+sudo "$username" -c "chsh -s 'which zsh'"
+#wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+#chsh -s 'which zsh'
+#exit
 reboot
