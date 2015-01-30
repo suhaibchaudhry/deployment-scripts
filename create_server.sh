@@ -96,11 +96,11 @@ echo "Installing ZSH and Oh-My-Zsh Packages"
 apt-get install zsh -y
 apt-get install git-core -y
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-chsh -s 'which zsh'
+chsh -s '/bin/zsh'
 
 echo "Changing username shell to ZSH"
 su "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
-su "$username" -c "chsh -s 'which zsh'"
+su "$username" -c "chsh -s '/bin/zsh'"
 #wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 #chsh -s 'which zsh'
 #exit
