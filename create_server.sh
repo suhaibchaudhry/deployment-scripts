@@ -20,6 +20,7 @@ echo "Changing password for root"
 echo root:$rootpass | /usr/sbin/chpasswd
 
 echo "Creating a new user"
+groupadd $username
 useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo $username:$userpass | /usr/sbin/chpasswd
 
