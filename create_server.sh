@@ -47,6 +47,7 @@ apt-get install php5-cli -y
 apt-get install php5-mcrypt -y
 apt-get install php5-curl -y
 php5enmod mcrypt
+apt-get install php5-gd -y
 
 echo "Create filesystem"
 su "$username" -c 'mkdir ~/"$sitename"'
