@@ -110,5 +110,5 @@ su "$username" -c "chsh -s '/bin/zsh'"
 
 echo $username
 echo $sitename
-su "$username" -c "echo $username"
-su "$username" -c "echo $sitename"
+su "$username" -c "echo "$username""
+su "$username" -c "echo "$sitename""
