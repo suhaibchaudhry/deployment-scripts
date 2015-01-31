@@ -106,3 +106,6 @@ su "$username" -c "chsh -s '/bin/zsh'"
 #chsh -s 'which zsh'
 #exit
 #reboot
+
+echo $username
+echo $sitename
