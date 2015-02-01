@@ -51,6 +51,7 @@ apt-get install php5-gd -y
 
 echo "Create filesystem"
 mkdir /home/"$username"/"$sitename".com
+chown -R "$username":"$useranme" /home/"$username"/"$sitename".com
 wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/
 tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/
 rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
@@ -107,6 +108,7 @@ echo "Changing username shell to ZSH"
 
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -P /home/"$username"/
 chown -R "$username":"$username" /home/"$username"/install.sh
+chmod +x /home/"$username"/install.sh
 su "$username" -c '/home/'"$username"'/install.sh'
 chsh -s '/bin/zsh' "$username"
 #wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
