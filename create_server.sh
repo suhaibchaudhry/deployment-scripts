@@ -27,25 +27,25 @@ useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo "$username":"$userpass" | /usr/sbin/chpasswd
 
 echo -e "adding nginx repo..."
-apt-add-repository ppa:nginx/stable -y > /dev/null 2>&1
+apt-add-repository ppa:nginx/stable -y
 echo -e "installing nginx..."
-apt-get install nginx -y > /dev/null 2>&1
+apt-get install nginx -y
 echo -e "installing key for percona..."
-apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A > /dev/null 2>&1
+apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
 echo -e "adding repo to sources list"...
-echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list > /dev/null 2>&1
-echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list > /dev/null 2>&1
+echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
+echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo -e "updating package list..."
-apt-get update -y > /dev/null 2>&1
+apt-get update -y
 echo -e "upgrading distro..."
-apt-get dist-upgrade -y > /dev/null 2>&1
+apt-get dist-upgrade -y
 echo -e "setting preconfigured inputs for percona..."
 echo "percona-server-server-5.5 percona-server-server/root_password password $rootpass" | debconf-set-selections
 echo "percona-server-server-5.5 percona-server-server/root_password_again password $rootpass" | debconf-set-selections
 echo -e "installing percona..."
-apt-get install percona-server-server-5.5 percona-server-client-5.5 -y > /dev/null 2>&1
+apt-get install percona-server-server-5.5 percona-server-client-5.5 -y
 echo -e "installing php5..."
-apt-get install php5-fpm -y > /dev/null 2>&1
+apt-get install php5-fpm -y
 echo -e "setting preconfigured inputs for phpmyadmin..."
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/app-password-confirm password $rootpass" | debconf-set-selections
@@ -55,17 +55,17 @@ echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debcon
 echo -e "installing phpmyadmin..."
 apt-get install phpmyadmin -y
 echo -e "installing drush..."
-apt-get install drush -y > /dev/null 2>&1
+apt-get install drush -y
 echo -e "installing php5 cli..."
-apt-get install php5-cli -y > /dev/null 2>&1
+apt-get install php5-cli -y
 echo -e "installing php5 mcrypt..."
-apt-get install php5-mcrypt -y > /dev/null 2>&1
+apt-get install php5-mcrypt -y
 echo -e "enabling mcrypt..."
-php5enmod mcrypt > /dev/null 2>&1
+php5enmod mcrypt
 echo -e "installing php5 curl..."
-apt-get install php5-curl -y > /dev/null 2>&1
+apt-get install php5-curl -y
 echo -e "installing php5 gd..."
-apt-get install php5-gd -y > /dev/null 2>&1
+apt-get install php5-gd -y
 
 echo -e "\n\n"
 
@@ -75,9 +75,9 @@ mkdir /home/"$username"/"$sitename".com
 echo -e "owning "$sitename".com directory..."
 chown -R "$username":"$useranme" /home/"$username"/"$sitename".com
 echo -e "retrieving drupal..."
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/ > /dev/null 2>&1
+wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/
 echo -e "extracing drupal..."
-tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/ > /dev/null 2>&1
+tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/
 echo -e "removing drupal tar file..."
 rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
 echo -e "renaming drupal file to httpdocs..."
@@ -108,9 +108,9 @@ su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"
 echo -e "\n\n"
 
 echo -e "restarting nginx..."
-service nginx restart > /dev/null 2>&1
+service nginx restart
 echo -e "restarting php5..."
-service php5-fpm restart > /dev/null 2>&1
+service php5-fpm restart
 
 echo -e "\n\n"
 
