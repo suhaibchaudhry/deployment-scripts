@@ -75,14 +75,14 @@ echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debcon
 apt-get install phpmyadmin -y > /dev/null 2>&1
 echo -e "done..."
 echo -e "\n---installing drush---\n"
-apt-get install drush -y
+apt-get install drush -y > /dev/null 2>&1
 echo -e "done..."
 echo -e "\n---installing/enabling extra php modules---\n"
-apt-get install php5-cli -y
-apt-get install php5-mcrypt -y
-apt-get install php5-curl -y
-php5enmod mcrypt
-apt-get install php5-gd -y
+apt-get install php5-cli -y > /dev/null 2>&1
+apt-get install php5-mcrypt -y > /dev/null 2>&1
+apt-get install php5-curl -y > /dev/null 2>&1
+php5enmod mcrypt > /dev/null 2>&1
+apt-get install php5-gd -y > /dev/null 2>&1
 echo -e "done..."
 
 echo -e "\n\n"
