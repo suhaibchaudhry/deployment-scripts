@@ -58,15 +58,15 @@ mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpd
 chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf
 rm /etc/nginx/sites-enabled/default
-rsync -azPK -e "ssh -p 2222" suhaib@192.168.1.150:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
-mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com
+rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
+mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/suhaib/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/uitoux/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/php-fpm.conf
-su "$username" -c 'ln -s /usr/share/phpmyadmin /home/"$username"/"$sitename"/httpdocs'
-su "$username" -c 'mv /home/"$username"/"$sitename"/httpdocs/sites/default /home/"$username"/"$sitename"/httpdocs/sites/"$sitename".com'
-su "$username" -c 'ln -s /home/"$username"/"$sitename"/httpdocs/sites/"$sitename".com /home/"$username"/"$sitename"/httpdocs/sites/default'
+su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
+su "$username" -c 'mv /home/'"$username"'/'"$sitename"'/httpdocs/sites/default /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"'.com'
+su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'/httpdocs/sites/default'
 #sudo "$username"
 #cd ~
 #mkdir "$sitename"
@@ -103,13 +103,8 @@ chsh -s '/bin/zsh'
 
 echo "Changing username shell to ZSH"
 su "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
-su "$username" -c "chsh -s '/bin/zsh'"
+chsh -s '/bin/zsh' "$username"
 #wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 #chsh -s 'which zsh'
 #exit
 #reboot
-
-echo $username
-echo $sitename
-su "$username" -c "echo "$username""
-su "$username" -c "echo "$sitename""
