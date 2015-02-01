@@ -50,8 +50,8 @@ php5enmod mcrypt
 apt-get install php5-gd -y
 
 echo "Create filesystem"
-su "$username" -c 'mkdir /home/"$username"/"$sitename"'
-su "$username" -c 'wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename"/'
+mkdir /home/"$username"/"$sitename"
+wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename"/
 tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename"/
 rm /home/"$username"/"$sitename"/drupal-7.34.tar.gz
 mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpdocs
