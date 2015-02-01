@@ -8,11 +8,11 @@ read site
 sitename=$site
 
 echo -e "what password do you want to set for root: \c"
-read rootpassword
+read -s rootpassword
 rootpass=$rootpassword
 
 echo -e "\nwhat password do you want to set for "$username": \c"
-read userpassword
+read -s userpassword
 userpass=$userpassword
 
 echo -e "\n\n\n"
@@ -69,15 +69,14 @@ apt-get install php5-gd -y > /dev/null 2>&1
 
 echo -e "\n\n"
 
-echo -e "\n### Create filesystem ###\n"
 echo -e "creating "$sitename".com directory..."
 mkdir /home/"$username"/"$sitename".com
 echo -e "owning "$sitename".com directory..."
 chown -R "$username":"$useranme" /home/"$username"/"$sitename".com
 echo -e "retrieving drupal..."
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/
+wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/ > /dev/null 2>&1
 echo -e "extracing drupal..."
-tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/
+tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/ > /dev/null 2>&1
 echo -e "removing drupal tar file..."
 rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
 echo -e "renaming drupal file to httpdocs..."
