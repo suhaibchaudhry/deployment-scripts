@@ -62,8 +62,8 @@ rsync -azPK -e "ssh -p 2222" suhaib@192.168.1.150:/home/suhaib/backups/nginx_con
 mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/suhaib/"$username"/g' /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/uitoux/"$sitename"/g' /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/www-data/"$username"/g' /etc/php5/fpm/pool.d/www.conf
-sed -i 's/www-data/"$username"/g' /etc/php5/fpm/php-fpm.conf
+sed -i 's/www-data/$username/g' /etc/php5/fpm/pool.d/www.conf
+sed -i 's/www-data/$username/g' /etc/php5/fpm/php-fpm.conf
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/"$username"/"$sitename"/httpdocs'
 su "$username" -c 'mv /home/"$username"/"$sitename"/httpdocs/sites/default /home/"$username"/"$sitename"/httpdocs/sites/"$sitename".com'
 su "$username" -c 'ln -s /home/"$username"/"$sitename"/httpdocs/sites/"$sitename".com /home/"$username"/"$sitename"/httpdocs/sites/default'
