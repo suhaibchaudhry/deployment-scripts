@@ -102,7 +102,11 @@ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - 
 chsh -s '/bin/zsh'
 
 echo "Changing username shell to ZSH"
-su "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
+#su "$username" -c "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh"
+#chsh -s '/bin/zsh' "$username"
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -P /home/"$username"/
+su "$username" -c '/home/'"$username"'/install.sh'
 chsh -s '/bin/zsh' "$username"
 #wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 #chsh -s 'which zsh'
