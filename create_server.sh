@@ -56,17 +56,17 @@ tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/
 rm /home/"$username"/"$sitename"/drupal-7.34.tar.gz
 mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpdocs
 chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
-su "$username" -c 'sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf'
-su "$username" -c 'rm /etc/nginx/sites-enabled/default'
-su "$username" -c 'rsync -azPK -e "ssh -p 2222" suhaib@192.168.1.150:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/'
-su "$username" -c 'mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com'
-su "$username" -c 'sed -i 's/suhaib/"$username"/g' /etc/nginx/sites-enabled/"$sitename".com'
-su "$username" -c 'sed -i 's/uitoux/"$sitename"/g' /etc/nginx/sites-enabled/"$sitename".com'
-su "$username" -c 'sed -i 's/www-data/"$username"/g' /etc/php5/fpm/pool.d/www.conf'
-su "$username" -c 'sed -i 's/www-data/"$username"/g' /etc/php5/fpm/php-fpm.conf'
-su "$username" -c 'ln -s /usr/share/phpmyadmin ~/"$sitename"/httpdocs'
-su "$username" -c 'mv ~/"$sitename"/httpdocs/sites/default ~/"$sitename"/httpdocs/sites/"$sitename".com'
-su "$username" -c 'ln -s ~/"$sitename"/httpdocs/sites/"$sitename".com ~/"$sitename"/httpdocs/sites/default'
+sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf
+rm /etc/nginx/sites-enabled/default
+rsync -azPK -e "ssh -p 2222" suhaib@192.168.1.150:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
+mv ~/etc/nginx/sites-enabled/sample_se.com ~/etc/nginx/sites-enabled/"$sitename".com
+sed -i 's/suhaib/"$username"/g' /etc/nginx/sites-enabled/"$sitename".com
+sed -i 's/uitoux/"$sitename"/g' /etc/nginx/sites-enabled/"$sitename".com
+sed -i 's/www-data/"$username"/g' /etc/php5/fpm/pool.d/www.conf
+sed -i 's/www-data/"$username"/g' /etc/php5/fpm/php-fpm.conf
+su "$username" -c 'ln -s /usr/share/phpmyadmin /home/"$username"/"$sitename"/httpdocs'
+su "$username" -c 'mv /home/"$username"/"$sitename"/httpdocs/sites/default /home/"$username"/"$sitename"/httpdocs/sites/"$sitename".com'
+su "$username" -c 'ln -s /home/"$username"/"$sitename"/httpdocs/sites/"$sitename".com /home/"$username"/"$sitename"/httpdocs/sites/default'
 #sudo "$username"
 #cd ~
 #mkdir "$sitename"
