@@ -50,11 +50,12 @@ php5enmod mcrypt
 apt-get install php5-gd -y
 
 echo "Create filesystem"
-su "$username" -c 'mkdir ~/"$sitename"'
+su "$username" -c 'mkdir /home/"$sitename"'
 su "$username" -c 'wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P ~/"$sitename"/'
-su "$username" -c 'tar -xvzf ~/"$sitename"/drupal-7.34.tar.gz'
-su "$username" -c 'rm ~/"$sitename"/drupal-7.34.tar.gz'
-su "$username" -c 'mv ~/"$sitename"/drupal-7.34 ~/"$sitename"/httpdocs'
+tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename"/
+rm /home/"$username"/"$sitename"/drupal-7.34.tar.gz
+mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpdocs
+chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 su "$username" -c 'sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf'
 su "$username" -c 'rm /etc/nginx/sites-enabled/default'
 su "$username" -c 'rsync -azPK -e "ssh -p 2222" suhaib@192.168.1.150:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/'
