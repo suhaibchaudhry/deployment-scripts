@@ -1,15 +1,19 @@
 #!/bin/bash
 echo -e "what username do you want to create: \c"
-read username
+read user
+username=$user
 
 echo -e "what name do you want to set for this server: \c"
-read sitename
+read site
+sitename=$site
 
 echo -e "what password do you want to set for root: \c"
-read rootpass 
+read rootpassword
+rootpass=$rootpassword
 
 echo -e "\nwhat password do you want to set for "$username": \c"
-read userpass
+read userpassword
+userpass=$userpassword
 
 echo -e "\n\n\n"
 
