@@ -27,25 +27,25 @@ useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo "$username":"$userpass" | /usr/sbin/chpasswd
 
 echo -e "adding nginx repo..."
-apt-add-repository ppa:nginx/stable -y
+apt-add-repository ppa:nginx/stable -y > /dev/null 2>&1
 echo -e "installing nginx..."
-apt-get install nginx -y
+apt-get install nginx -y > /dev/null 2>&1
 echo -e "installing key for percona..."
-apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
+apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A > /dev/null 2>&1
 echo -e "adding repo to sources list"...
 echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo -e "updating package list..."
-apt-get update -y
+apt-get update -y > /dev/null 2>&1
 echo -e "upgrading distro..."
-apt-get dist-upgrade -y
+apt-get dist-upgrade -y > /dev/null 2>&1
 echo -e "setting preconfigured inputs for percona..."
 echo "percona-server-server-5.5 percona-server-server/root_password password $rootpass" | debconf-set-selections
 echo "percona-server-server-5.5 percona-server-server/root_password_again password $rootpass" | debconf-set-selections
 echo -e "installing percona..."
-apt-get install percona-server-server-5.5 percona-server-client-5.5 -y
+apt-get install percona-server-server-5.5 percona-server-client-5.5 -y > /dev/null 2>&1
 echo -e "installing php5..."
-apt-get install php5-fpm -y
+apt-get install php5-fpm -y > /dev/null 2>&1
 echo -e "setting preconfigured inputs for phpmyadmin..."
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/app-password-confirm password $rootpass" | debconf-set-selections
@@ -55,17 +55,17 @@ echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debcon
 echo -e "installing phpmyadmin..."
 apt-get install phpmyadmin -y > /dev/null 2>&1
 echo -e "installing drush..."
-apt-get install drush -y
+apt-get install drush -y > /dev/null 2>&1
 echo -e "installing php5 cli..."
-apt-get install php5-cli -y
+apt-get install php5-cli -y > /dev/null 2>&1
 echo -e "installing php5 mcrypt..."
-apt-get install php5-mcrypt -y
+apt-get install php5-mcrypt -y > /dev/null 2>&1
 echo -e "enabling mcrypt..."
-php5enmod mcrypt
+php5enmod mcrypt > /dev/null 2>&1
 echo -e "installing php5 curl..."
-apt-get install php5-curl -y
+apt-get install php5-curl -y > /dev/null 2>&1
 echo -e "installing php5 gd..."
-apt-get install php5-gd -y
+apt-get install php5-gd -y > /dev/null 2>&1
 
 echo -e "\n\n"
 
