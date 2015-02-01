@@ -106,6 +106,7 @@ echo "Changing username shell to ZSH"
 #chsh -s '/bin/zsh' "$username"
 
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -P /home/"$username"/
+chown -R "$username":"$username" /home/"$username"/install.sh
 su "$username" -c '/home/'"$username"'/install.sh'
 chsh -s '/bin/zsh' "$username"
 #wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
