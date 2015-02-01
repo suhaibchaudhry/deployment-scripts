@@ -8,15 +8,17 @@ read sitename
 echo -e "what password do you want to set for root: \c"
 read -s rootpass 
 
-echo -e "what password do you want to set for "$username": \c"
+echo -e "\nwhat password do you want to set for "$username": \c"
 read -s userpass
 
-echo -e "changing password for root"
+echo "\n\n\n"
+
+echo -e "changing password for root..."
 echo root:$rootpass | /usr/sbin/chpasswd
 
-echo -e "creating new group for "$username""
+echo -e "creating new group for "$username"..."
 groupadd "$username"
-echo -e "creating user "$username""
+echo -e "creating user "$username"..."
 useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo "$username":"$userpass" | /usr/sbin/chpasswd
 
@@ -46,7 +48,8 @@ echo "phpmyadmin phpmyadmin/app-password-confirm password $rootpass" | debconf-s
 echo "phpmyadmin phpmyadmin/mysql/admin-pass password $rootpass" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/mysql/app-pass password $rootpass" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debconf-set-selections
-apt-get install phpmyadmin -y > /dev/null 2>&1
+echo -e "installing phpmyadmin..."
+apt-get install phpmyadmin -y
 echo -e "installing drush..."
 apt-get install drush -y > /dev/null 2>&1
 echo -e "installing php5 cli..."
