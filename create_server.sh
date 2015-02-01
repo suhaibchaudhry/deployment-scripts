@@ -53,7 +53,7 @@ echo "phpmyadmin phpmyadmin/mysql/admin-pass password $rootpass" | debconf-set-s
 echo "phpmyadmin phpmyadmin/mysql/app-pass password $rootpass" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debconf-set-selections
 echo -e "installing phpmyadmin..."
-apt-get install phpmyadmin -y
+apt-get install phpmyadmin -y > /dev/null 2>&1
 echo -e "installing drush..."
 apt-get install drush -y
 echo -e "installing php5 cli..."
@@ -108,9 +108,9 @@ su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"
 echo -e "\n\n"
 
 echo -e "restarting nginx..."
-service nginx restart
+service nginx restart > /dev/null 2>&1
 echo -e "restarting php5..."
-service php5-fpm restart
+service php5-fpm restart > /dev/null 2>&1
 
 echo -e "\n\n"
 
