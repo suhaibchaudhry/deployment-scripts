@@ -50,23 +50,23 @@ php5enmod mcrypt
 apt-get install php5-gd -y
 
 echo "Create filesystem"
-mkdir /home/"$username"/"$sitename"
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename"/
-tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename"/
-rm /home/"$username"/"$sitename"/drupal-7.34.tar.gz
-mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpdocs
-chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
-sed -i 's/www-data/"$username"/g' /etc/nginx/nginx.conf
+mkdir /home/"$username"/"$sitename".com
+wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/
+tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/
+rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
+mv /home/"$username"/"$sitename".com/drupal-7.34 /home/"$username"/"$sitename".com/httpdocs
+chown -R "$username":"$username" /home/"$username"/"$sitename".com/httpdocs
+sed -i 's/www-data/'"$username"'/g' /etc/nginx/nginx.conf
 rm /etc/nginx/sites-enabled/default
 rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
 mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/suhaib/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/uitoux/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename".com
+sed -i 's/uitoux/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename".com
+sed -i 's/'"$username"'.com/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/php-fpm.conf
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
-su "$username" -c 'mv /home/'"$username"'/'"$sitename"'/httpdocs/sites/default /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"'.com'
-su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'/httpdocs/sites/default'
+su "$username" -c 'mv /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com'
+su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default'
 #sudo "$username"
 #cd ~
 #mkdir "$sitename"
