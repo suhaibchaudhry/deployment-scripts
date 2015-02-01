@@ -32,15 +32,15 @@ echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 apt-get update -y
 apt-get dist-upgrade -y
-sudo debconf-set-selections <<< 'percona-server-server-5.5 percona-server-server/root_password "$rootpass"'
-sudo debconf-set-selections <<< 'percona-server-server-5.5 percona-server-server/root_password_again "$rootpass"'
+echo "percona-server-server-5.5 percona-server-server/root_password password $rootpass" | debconf-set-selections
+echo "percona-server-server-5.5 percona-server-server/root_password_again password $rootpass" | debconf-set-selections
 apt-get install percona-server-server-5.5 percona-server-client-5.5 -y
 apt-get install php5-fpm -y
-debconf-set-selections <<< 'phpmyadmin phpmyadmin/app-password-confirm "$rootpass"'
-debconf-set-selections <<< 'phpmyadmin phpmyadmin/dbconfig-install boolean true'
-debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/admin-pass password "$rootpass"'
-debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/app-pass "$rootpass"'
-debconf-set-selections <<< 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd'
+echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/app-password-confirm password $rootpass" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-pass password $rootpass" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/app-pass password $rootpass" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debconf-set-selections
 apt-get install phpmyadmin -y
 apt-get install drush -y
 apt-get install php5-cli -y
