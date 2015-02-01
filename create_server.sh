@@ -6,15 +6,15 @@ echo -e "what name do you want to set for this server: \c"
 read sitename
 
 echo -e "what password do you want to set for root: \c"
-read -s rootpass 
+read rootpass 
 
 echo -e "\nwhat password do you want to set for "$username": \c"
-read -s userpass
+read userpass
 
-echo "\n\n\n"
+echo -e "\n\n\n"
 
 echo -e "changing password for root..."
-echo root:$rootpass | /usr/sbin/chpasswd
+echo root:"$rootpass" | /usr/sbin/chpasswd
 
 echo -e "creating new group for "$username"..."
 groupadd "$username"
