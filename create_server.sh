@@ -1,134 +1,111 @@
 #!/bin/bash
-echo -e "---------------------------------------------------------------------------"
-echo -e "|  ############ LETS START WITH SOME PRELIMINARY QUESTIONS! ############  |"
-echo -e "---------------------------------------------------------------------------\n"
-
-echo -e "---------------------------------------------------"
-echo -e "|  TELL ME ABOUT YOU! (NAME/USERNAME/SERVERNAME)  |"
-echo -e "---------------------------------------------------"
-
-echo -e "What is your full name?\n\tFirst name: \c"
-read firstname
-echo -e "\tLast name: \c"
-read lastname
-name="$firstname $lastname"
-
-echo -e "\nWhat username do you want to create: \c"
+echo -e "what username do you want to create: \c"
 read username
 
-echo -e "What name do you want to set for this server: \c"
+echo -e "what name do you want to set for this server: \c"
 read sitename
 
-echo -e "\n------------------------------------"
-echo -e "|  TIME TO SET UP SOME PASSWORDS!  |"
-echo -e "------------------------------------"
-
-echo -e "What password do you want to set for root: \c"
+echo -e "what password do you want to set for root: \c"
 read -s rootpass 
 
-echo -e "\nWhat password do you want to set for "$username": \c"
+echo -e "what password do you want to set for "$username": \c"
 read -s userpass
-echo -e "\n\n**************************************************************************************************"
 
-echo -e "\n\n\n--------------------------------------------"
-echo -e "|  ############ SERVER SETUP ############  |"
-echo -e "--------------------------------------------"
-
-echo -e "\n### Changing password for root ###\n"
+echo -e "changing password for root"
 echo root:$rootpass | /usr/sbin/chpasswd
 
-echo -e "\n### Creating a new user ###\n"
+echo -e "creating new group for "$username""
 groupadd "$username"
+echo -e "creating user "$username""
 useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo "$username":"$userpass" | /usr/sbin/chpasswd
 
-echo -e "\n### Installing LEMP stack ###\n"
-echo -e "\n---adding nginx repo---\n"
-apt-add-repository ppa:nginx/stable -y
+echo -e "adding nginx repo..."
+apt-add-repository ppa:nginx/stable -y > /dev/null 2>&1
+echo -e "installing nginx..."
 apt-get install nginx -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---setting up percona to be installed---\n"
-apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
-echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
-echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
-echo -e "done..."
-echo -e "\n---updating package list---\n"
+echo -e "installing key for percona..."
+apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A > /dev/null 2>&1
+echo -e "adding repo to sources list"...
+echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list > /dev/null 2>&1
+echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list > /dev/null 2>&1
+echo -e "updating package list..."
 apt-get update -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---upgrading distro---\n"
+echo -e "upgrading distro..."
 apt-get dist-upgrade -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---installing percona---\n"
+echo -e "setting preconfigured inputs for percona..."
 echo "percona-server-server-5.5 percona-server-server/root_password password $rootpass" | debconf-set-selections
 echo "percona-server-server-5.5 percona-server-server/root_password_again password $rootpass" | debconf-set-selections
+echo -e "installing percona..."
 apt-get install percona-server-server-5.5 percona-server-client-5.5 -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---installing php5---\n"
+echo -e "installing php5..."
 apt-get install php5-fpm -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---installing phpmyadmin---\n"
+echo -e "setting preconfigured inputs for phpmyadmin..."
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/app-password-confirm password $rootpass" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/mysql/admin-pass password $rootpass" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/mysql/app-pass password $rootpass" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debconf-set-selections
 apt-get install phpmyadmin -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---installing drush---\n"
+echo -e "installing drush..."
 apt-get install drush -y > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---installing/enabling extra php modules---\n"
+echo -e "installing php5 cli..."
 apt-get install php5-cli -y > /dev/null 2>&1
+echo -e "installing php5 mcrypt..."
 apt-get install php5-mcrypt -y > /dev/null 2>&1
-apt-get install php5-curl -y > /dev/null 2>&1
+echo -e "enabling mcrypt..."
 php5enmod mcrypt > /dev/null 2>&1
+echo -e "installing php5 curl..."
+apt-get install php5-curl -y > /dev/null 2>&1
+echo -e "installing php5 gd..."
 apt-get install php5-gd -y > /dev/null 2>&1
-echo -e "done..."
 
 echo -e "\n\n"
 
 echo -e "\n### Create filesystem ###\n"
-echo -e "\n---creating server directory---\n"
+echo -e "creating "$sitename".com directory..."
 mkdir /home/"$username"/"$sitename".com
+echo -e "owning "$sitename".com directory..."
 chown -R "$username":"$useranme" /home/"$username"/"$sitename".com
-echo -e "done..."
-echo -e "\n---getting drupal---\n"
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/
-echo -e "done..."
-echo -e "\n---extracing drupal---\n"
+echo -e "retrieving drupal..."
+wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/ > /dev/null 2>&1
+echo -e "extracing drupal..."
 tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/ > /dev/null 2>&1
-echo -e "done..."
-echo -e "\n---configuring drupal file structure---\n"
+echo -e "removing drupal tar file..."
 rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
+echo -e "renaming drupal file to httpdocs..."
 mv /home/"$username"/"$sitename".com/drupal-7.34 /home/"$username"/"$sitename".com/httpdocs
+echo -e "owning httpdocs..."
 chown -R "$username":"$username" /home/"$username"/"$sitename".com/httpdocs
-echo -e "done..."
-echo -e "/n---configuring nginx---\n"
+echo -e "configuring nginx.conf..."
 sed -i 's/www-data/'"$username"'/g' /etc/nginx/nginx.conf
+echo -e "removing default sites-enabled..."
 rm /etc/nginx/sites-enabled/default
+echo -e "adding own sites-enabled file..."
 rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
+echo -e "renaming the sites-enabled file to "$sitename".com..."
 mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename".com
+echo -e "configuring "$sitename.com" file..."
 sed -i 's/uitoux/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/'"$username"'.com/'"$sitename"'.com/g' /etc/nginx/sites-enabled/"$sitename".com
-echo -e "done..."
-echo -e "\n---configuring php5---\n"
+echo -e "configuring php5..."
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/php-fpm.conf
-echo -e "done..."
-echo -e "\n---cleaning up drupal---\n"
+echo -e "creating link to phpmyadmin in httpdocs..."
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
+echo -e "rename default in sites folder to "$sitename".com..."
 su "$username" -c 'mv /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com'
+echo -e "create symbolic link of "$sitename".com and call it default..."
 su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default'
-echo -e "done..."
 
 echo -e "\n\n"
 
-echo -e "\n### Restart all services ###\n"
-service nginx restart
-service php5-fpm restart
-echo -e "done..."
+echo -e "restarting nginx..."
+service nginx restart > /dev/null 2>&1
+echo -e "restarting php5..."
+service php5-fpm restart > /dev/null 2>&1
 
 echo -e "\n\n"
 
-echo -e "\n### Restarting Server ###\n"
+echo -e "restarting server, please stand by..."
 reboot
