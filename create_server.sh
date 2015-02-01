@@ -52,7 +52,7 @@ apt-get install php5-gd -y
 echo "Create filesystem"
 mkdir /home/"$username"/"$sitename".com
 wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/
-tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/
+tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/
 rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
 mv /home/"$username"/"$sitename".com/drupal-7.34 /home/"$username"/"$sitename".com/httpdocs
 chown -R "$username":"$username" /home/"$username"/"$sitename".com/httpdocs
@@ -61,7 +61,7 @@ rm /etc/nginx/sites-enabled/default
 rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
 mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/uitoux/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/'"$username"'.com/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename".com
+sed -i 's/'"$username"'.com/'"$sitename"'.com/g' /etc/nginx/sites-enabled/"$sitename".com
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/php-fpm.conf
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
