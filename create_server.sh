@@ -17,8 +17,9 @@ userpass=$userpassword
 
 echo -e "\n\n\n"
 
-echo -e "changing password for root..."
+echo -e "changing password for root... \c"
 echo root:"$rootpass" | /usr/sbin/chpasswd
+echo -e "done!"
 
 echo -e "creating new group for "$username"... \c"
 groupadd "$username"
