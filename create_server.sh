@@ -5,7 +5,7 @@ username="$user"
 
 echo -e "what is the domain name (e.g. uitoux.com): \c"
 read site
-sitename="$site".com
+sitename="$site"
 
 echo -e "what password do you want to set for root: \c"
 read -s rootpassword
@@ -50,7 +50,9 @@ echo -e "done!"
 echo -e "upgrading distro... \c"
 apt-get dist-upgrade -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "setting preconfigured inputs for percona... \c"
+echo -e "setting preconfigured inputs for (( i = 0; i < 10; i++ )); do
+	#statements
+done percona... \c"
 echo "percona-server-server-5.5 percona-server-server/root_password password $rootpass" | debconf-set-selections
 echo "percona-server-server-5.5 percona-server-server/root_password_again password $rootpass" | debconf-set-selections
 echo -e "done!"
