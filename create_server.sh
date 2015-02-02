@@ -1,19 +1,19 @@
 #!/bin/bash
 echo -e "what username do you want to create: \c"
 read user
-username=$user
+username="$user"
 
-echo -e "what name do you want to set for this server: \c"
+echo -e "what is the domain name (e.g. uitoux.com): \c"
 read site
-sitename=$site
+sitename="$site".com
 
 echo -e "what password do you want to set for root: \c"
 read -s rootpassword
-rootpass=$rootpassword
+rootpass="$rootpassword"
 
 echo -e "\nwhat password do you want to set for "$username": \c"
 read -s userpassword
-userpass=$userpassword
+userpass="$userpassword"
 
 echo -e "\n\n\n"
 
@@ -119,7 +119,7 @@ echo -e "removing default sites-enabled... \c"
 rm /etc/nginx/sites-enabled/default
 echo -e "done!"
 echo -e "adding own sites-enabled file... \c"
-rsync -azPK -e "ssh -p 2222" suhaib@96.88.40.226:/home/suhaib/backups/nginx_conf/sample_se.com /etc/nginx/sites-enabled/
+mv sample_se.com /etc/nginx/sites-enabled/
 echo -e "done!"
 echo -e "renaming the sites-enabled file to "$sitename".com... \c"
 mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename".com
