@@ -91,26 +91,26 @@ echo -e "done!"
 
 echo -e "\n\n"
 
-echo -e "creating "$sitename".com directory... \c"
-mkdir /home/"$username"/"$sitename".com
+echo -e "creating "$sitename" directory... \c"
+mkdir /home/"$username"/"$sitename"
 echo -e "done!"
-echo -e "owning "$sitename".com directory... \c"
-chown -R "$username":"$useranme" /home/"$username"/"$sitename".com
+echo -e "owning "$sitename" directory... \c"
+chown -R "$username":"$useranme" /home/"$username"/"$sitename"
 echo -e "done!"
 echo -e "retrieving drupal... \c"
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename".com/ > /dev/null 2> /home/"$username"/errors.log
+wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "extracing drupal... \c"
-tar -xvzf /home/"$username"/"$sitename".com/drupal-7.34.tar.gz -C /home/"$username"/"$sitename".com/ > /dev/null 2> /home/"$username"/errors.log
+tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "removing drupal tar file... \c"
-rm /home/"$username"/"$sitename".com/drupal-7.34.tar.gz
+rm /home/"$username"/"$sitename"/drupal-7.34.tar.gz
 echo -e "done!"
 echo -e "renaming drupal file to httpdocs... \c"
-mv /home/"$username"/"$sitename".com/drupal-7.34 /home/"$username"/"$sitename".com/httpdocs
+mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpdocs
 echo -e "done!"
 echo -e "owning httpdocs... \c"
-chown -R "$username":"$username" /home/"$username"/"$sitename".com/httpdocs
+chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 echo -e "done!"
 echo -e "configuring nginx.conf... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/nginx/nginx.conf
@@ -121,12 +121,12 @@ echo -e "done!"
 echo -e "adding own sites-enabled file... \c"
 mv sample_se.com /etc/nginx/sites-enabled/
 echo -e "done!"
-echo -e "renaming the sites-enabled file to "$sitename".com... \c"
-mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename".com
+echo -e "renaming the sites-enabled file to "$sitename"... \c"
+mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
-echo -e "configuring "$sitename.com" file... \c"
-sed -i 's/uitoux/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename".com
-sed -i 's/'"$username"'.com/'"$sitename"'.com/g' /etc/nginx/sites-enabled/"$sitename".com
+echo -e "configuring "$sitename" file... \c"
+sed -i 's/uitoux/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename"
+sed -i 's/'"$username"'.com/'"$sitename"'.com/g' /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring php5... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
@@ -135,10 +135,10 @@ echo -e "done!"
 echo -e "creating link to phpmyadmin in httpdocs... \c"
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
 echo -e "done!"
-echo -e "rename default in sites folder to "$sitename".com... \c"
+echo -e "rename default in sites folder to "$sitename"... \c"
 su "$username" -c 'mv /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com'
 echo -e "done!"
-echo -e "create symbolic link of "$sitename".com and call it default... \c"
+echo -e "create symbolic link of "$sitename" and call it default... \c"
 su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default'
 echo -e "done!"
 
