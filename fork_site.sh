@@ -13,7 +13,7 @@ read dbpass
 
 echo -e "\n\n\n"
 
-mysql --user="root" --password="DAxyz&*^" -e "CREATE DATABASE '$dbname'"
+mysql --user="root" --password="DAxyz&*^" -e "CREATE DATABASE $dbname"
 mysql --user="root" --password="DAxyz&*^" -e "GRANT USAGE ON *.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpass'"
 mysql --user="root" --password="DAxyz&*^" -e "GRANT ALL PRIVILEGES ON '$dbname'.* TO '$dbuser'@localhost"
 mysql --user="root" --password="DAxyz&*^" -e "FLUSH PRIVILEGES"
