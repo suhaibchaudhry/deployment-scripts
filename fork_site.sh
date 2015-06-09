@@ -26,3 +26,5 @@ mv ~/"$sitename".com/httpdocs/sites/default ~/"$sitename".com/httpdocs/sites/"$s
 ln -s ~/"$sitename".com/httpdocs/sites/"$sitename".com ~/"$sitename".com/httpdocs/sites/default
 rm -rf ~/"$sitename".com/httpdocs/sites/all/themes/*
 git clone https://suhaib_uitoux:underwater908@bitbucket.org/uitouxteam/ui-to-ux-theme-kit.git ~/"$sitename".com/httpdocs/sites/all/themes/
+
+drush site-install standard --account-name="$drupaluser" --account-password="$drupalpass" --db-url=mysql://"$dbuser":"$dbpass"@localhost/"$dbname"
