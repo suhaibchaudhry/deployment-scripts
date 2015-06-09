@@ -11,6 +11,12 @@ read dbuser
 echo -e "Enter the preferred DB password: \c"
 read dbpass
 
+echo -e "Enter Drupal username: \c"
+read drupaluser
+
+echo -e "Enter Drupal password: \c"
+read drupalpass
+
 echo -e "\n\n\n"
 
 mysql --user="root" --password="DAxyz&*^" -e "CREATE DATABASE $dbname"
