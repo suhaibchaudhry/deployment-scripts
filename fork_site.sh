@@ -33,4 +33,5 @@ ln -s ~/"$sitename".com/httpdocs/sites/"$sitename".com ~/"$sitename".com/httpdoc
 rm -rf ~/"$sitename".com/httpdocs/sites/all/themes/*
 git clone https://suhaib_uitoux:underwater908@bitbucket.org/uitouxteam/ui-to-ux-theme-kit.git ~/"$sitename".com/httpdocs/sites/all/themes/
 
+cd ~/"$sitename".com/httpdocs/sites/"$sitename".com
 drush site-install standard --account-name="$drupaluser" --account-password="$drupalpass" --db-url=mysql://"$dbuser":"$dbpass"@localhost/"$dbname"
