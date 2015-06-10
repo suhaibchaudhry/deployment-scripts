@@ -22,8 +22,6 @@ echo -e "\n"
 echo -e "MYSQL"
 echo -e "------------------------------------------------------"
 
-echo -e "\n"
-
 echo -e "creating MYSQL database..."
 mysql --user="root" --password="DAxyz&*^" -e "CREATE DATABASE $dbname" > /dev/null 2> ~/errors.log
 echo -e "creating MYSQL user for specified database..."
@@ -37,8 +35,6 @@ echo -e "\n"
 
 echo -e "directory structure"
 echo -e "------------------------------------------------------"
-
-echo -e "\n"
 
 echo -e "creating site home folder..."
 mkdir ~/"$sitename".com > /dev/null 2> ~/errors.log
@@ -62,8 +58,6 @@ echo -e "\n"
 echo -e "subtheme directory"
 echo -e "------------------------------------------------------"
 
-echo -e "\n"
-
 echo -e "changing directory to run drush..."
 cd ~/"$sitename".com/httpdocs/sites/"$sitename".com > /dev/null 2> ~/errors.log
 echo -e "running drush to install site..."
@@ -83,8 +77,6 @@ echo -e "\n"
 
 echo -e "file changes"
 echo -e "------------------------------------------------------"
-
-echo -e "\n"
 
 echo -e "changing all uitoux occurrances to match sitename..."
 sed -i 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
