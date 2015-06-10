@@ -60,6 +60,6 @@ rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.
 touch ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php
 
 cd ~/"$sitename".com/httpdocs/sites/"$sitename".com/
-drush pm-enable uitoux_theme
-drush pm-enable "$sitename"
+drush pm-enable uitoux_theme -y
+drush pm-enable "$sitename" -y
 drush vset theme_default "$sitename"
