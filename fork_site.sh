@@ -40,21 +40,21 @@ echo -e "------------------------------------------------------"
 
 echo -e "\n"
 
-echo -e "creating site home folder...\c"
+echo -e "creating site home folder..."
 mkdir ~/"$sitename".com > /dev/null 2> ~/errors.log
-echo -e "downloading latest drupal...\c"
+echo -e "downloading latest drupal..."
 drush dl drupal > /dev/null 2> ~/errors.log
-echo -e "changing folder name to httpdocs...\c"
+echo -e "changing folder name to httpdocs..."
 mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
-echo -e "creating symbolic link for PHPMyAdmin...\c"
+echo -e "creating symbolic link for PHPMyAdmin..."
 ln -s /usr/share/phpmyadmin ~/"$sitename".com/httpdocs/ > /dev/null 2> ~/errors.log
-echo -e "renaming default to sitename in sites...\c"
+echo -e "renaming default to sitename in sites..."
 mv ~/"$sitename".com/httpdocs/sites/default ~/"$sitename".com/httpdocs/sites/"$sitename".com > /dev/null 2> ~/errors.log
-echo -e "creating symbolic link for sitename in sites...\c"
+echo -e "creating symbolic link for sitename in sites..."
 ln -s ~/"$sitename".com/httpdocs/sites/"$sitename".com ~/"$sitename".com/httpdocs/sites/default > /dev/null 2> ~/errors.log
-echo -e "removing all files/folders inside all/themes...\c"
+echo -e "removing all files/folders inside all/themes..."
 rm -rf ~/"$sitename".com/httpdocs/sites/all/themes/* > /dev/null 2> ~/errors.log
-echo -e "getting ui to ux base theme...\c"
+echo -e "getting ui to ux base theme..."
 git clone https://suhaib_uitoux:underwater908@bitbucket.org/uitouxteam/ui-to-ux-theme-kit.git ~/"$sitename".com/httpdocs/sites/all/themes/ > /dev/null 2> ~/errors.log
 
 echo -e "\n"
@@ -64,19 +64,19 @@ echo -e "------------------------------------------------------"
 
 echo -e "\n"
 
-echo -e "changing directory to run drush...\c"
+echo -e "changing directory to run drush..."
 cd ~/"$sitename".com/httpdocs/sites/"$sitename".com > /dev/null 2> ~/errors.log
-echo -e "running drush to install site...\c"
+echo -e "running drush to install site..."
 drush site-install standard --account-name="$drupaluser" --account-pass="$drupalpass" --db-url=mysql://"$dbuser":"$dbpass"@localhost/"$dbname" -y > /dev/null 2> ~/errors.log
-echo -e "changing permissions for site folder...\c"
+echo -e "changing permissions for site folder..."
 chmod +w ~/"$sitename".com/httpdocs/sites/"$sitename".com > /dev/null 2> ~/errors.log
-echo -e "creating themes directory...\c"
+echo -e "creating themes directory..."
 mkdir ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes > /dev/null 2> ~/errors.log
-echo -e "copying over uitoux base theme...\c"
+echo -e "copying over uitoux base theme..."
 cp -R ~/"$sitename".com/httpdocs/sites/all/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes > /dev/null 2> ~/errors.log
-echo -e "changing uitoux base theme name to suit subtheme...\c"
+echo -e "changing uitoux base theme name to suit subtheme..."
 mv ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename" > /dev/null 2> ~/errors.log
-echo -e "renaming info file within subtheme...\c"
+echo -e "renaming info file within subtheme..."
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/*.* > /dev/null 2> ~/errors.log
 
 echo -e "\n"
@@ -86,7 +86,7 @@ echo -e "------------------------------------------------------"
 
 echo -e "\n"
 
-echo -e "changing all uitoux occurrances to match sitename...\c"
+echo -e "changing all uitoux occurrances to match sitename..."
 sed -i 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 sed -i 's/omega_kickstart/uitoux_theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
 sed -i 's/UI To UX/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
@@ -94,15 +94,15 @@ sed -i 's/UI To UX Theme/'"$sitename"' Theme/g' ~/"$sitename".com/httpdocs/sites
 sed -i 's/UI To UX Base Theme/'"$sitename"' Theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
 sed -i 's/UI To UX Theme/'"$sitename"' Theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
 sed -i 's/package = '"$sitename"'/package = UI To UX/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
-echo -e "changing all files within subdirectory to match sitename...\c"
+echo -e "changing all files within subdirectory to match sitename..."
 rename -v 's/uitoux-theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.* > /dev/null 2> ~/errors.log
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.* > /dev/null 2> ~/errors.log
 rename -v 's/uitoux-theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.* > /dev/null 2> ~/errors.log
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.* > /dev/null 2> ~/errors.log
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*.* > /dev/null 2> ~/errors.log
-echo -e "removing default.settings.php file...\c"
+echo -e "removing default.settings.php file..."
 rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/default.settings.php > /dev/null 2> ~/errors.log
-echo -e "replacing template.php with empty template.php...\c"
+echo -e "replacing template.php with empty template.php..."
 rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php > /dev/null 2> ~/errors.log
 touch ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php > /dev/null 2> ~/errors.log
 echo -e "setting up new theme for first time use..."
