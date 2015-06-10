@@ -49,11 +49,11 @@ sed -i 's/UI To UX Base Theme/'"$sitename"' Theme/g' ~/"$sitename".com/httpdocs/
 sed -i 's/UI To UX Theme/'"$sitename"' Theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 sed -i 's/package = '"$sitename"'/package = UI To UX/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 
-rename -v 's/uitoux-theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.*
-rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.*
-rename -v 's/uitoux-theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
-rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
-rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*.*
+rename -v 's/uitoux-theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.*
+rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.*
+rename -v 's/uitoux-theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
+rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
+rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*.*
 
-rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/template.php
-touch ~/"$sitename".com/httpdocs/sites/"$sitename".com/template.php
+rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php
+touch ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php
