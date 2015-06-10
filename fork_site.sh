@@ -55,5 +55,11 @@ rename -v 's/uitoux-theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$si
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*.*
 
+rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/default.settings.php
 rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php
 touch ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/template.php
+
+cd ~/"$sitename".com/httpdocs/sites/"$sitename".com/
+drush pm-enable uitoux_theme
+drush pm-enable "$sitename"
+drush vset theme_default "$sitename"
