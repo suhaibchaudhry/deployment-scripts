@@ -24,13 +24,13 @@ echo -e "------------------------------------------------------"
 
 echo -e "\n"
 
-echo -e "creating MYSQL database...\n"
+echo -e "creating MYSQL database..."
 mysql --user="root" --password="DAxyz&*^" -e "CREATE DATABASE $dbname" > /dev/null 2> ~/errors.log
-echo -e "creating MYSQL user for specified database...\n"
+echo -e "creating MYSQL user for specified database..."
 mysql --user="root" --password="DAxyz&*^" -e "GRANT USAGE ON *.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpass'" > /dev/null 2> ~/errors.log
-echo -e "granting privelages for user on database...\n"
+echo -e "granting privelages for user on database..."
 mysql --user="root" --password="DAxyz&*^" -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost" > /dev/null 2> ~/errors.log
-echo -e "flushing privelages to reset users/databases...\n"
+echo -e "flushing privelages to reset users/databases..."
 mysql --user="root" --password="DAxyz&*^" -e "FLUSH PRIVILEGES" > /dev/null 2> ~/errors.log
 
 echo -e "\n"
