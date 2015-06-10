@@ -39,7 +39,7 @@ chmod +w ~/"$sitename".com/httpdocs/sites/"$sitename".com
 mkdir ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes
 cp -R ~/"$sitename".com/httpdocs/sites/all/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes
 mv ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"
-rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/*.*
+rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/*.*
 
 sed -i 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 sed -i 's/omega_kickstart/uitoux_theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
