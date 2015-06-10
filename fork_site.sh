@@ -35,3 +35,25 @@ git clone https://suhaib_uitoux:underwater908@bitbucket.org/uitouxteam/ui-to-ux-
 
 cd ~/"$sitename".com/httpdocs/sites/"$sitename".com
 drush site-install standard --account-name="$drupaluser" --account-pass="$drupalpass" --db-url=mysql://"$dbuser":"$dbpass"@localhost/"$dbname" -y
+chmod +w ~/"$sitename".com/httpdocs/sites/"$sitename".com
+mkdir ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes
+cp -R ~/"$sitename".com/httpdocs/sites/all/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes
+mv ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"
+rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/*.*
+
+sed -i 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/omega_kickstart/uitoux_theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/UI To UX/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/UI To UX Theme/"$sitename" Theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info***
+sed -i 's/UI To UX Base Theme/"$sitename" Theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/UI To UX Theme/"$sitename" Theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/package = "$sitename"/package = UI To UX/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+
+rename -v 's/uitoux-theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.*
+rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/css/*.*
+rename -v 's/uitoux-theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
+rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/scss/*.*
+rename -v 's/uitoux_theme/"$sitename"/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*.*
+
+rm ~/"$sitename".com/httpdocs/sites/"$sitename".com/template.php
+touch ~/"$sitename".com/httpdocs/sites/"$sitename".com/template.php
