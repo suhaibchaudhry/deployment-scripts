@@ -1,4 +1,8 @@
 #!/bin/bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+echo -e "$DIR"
+
 echo -e "sitename (e.g. uitoux): \c"
 read sitename
 
@@ -72,6 +76,9 @@ echo -e "changing uitoux base theme name to suit subtheme..."
 mv ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/uitoux_theme ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename" > /dev/null 2> ~/errors.log
 echo -e "renaming info file within subtheme..."
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/*.* > /dev/null 2> ~/errors.log
+
+rm -rf ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*
+mv js_template.js
 
 echo -e "\n"
 
