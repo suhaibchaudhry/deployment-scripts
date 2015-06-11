@@ -1,8 +1,6 @@
 #!/bin/bash
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-echo -e "$DIR"
-
 echo -e "sitename (e.g. uitoux): \c"
 read sitename
 
@@ -78,7 +76,9 @@ echo -e "renaming info file within subtheme..."
 rename -v 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/*.* > /dev/null 2> ~/errors.log
 
 rm -rf ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/*
-mv js_template.js
+cp "$DIR"/templates/js_template.js ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/"$sitename"_custom.js
+
+sed -i 's/THEMENAME/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/js/"$sitename"_custom.js
 
 echo -e "\n"
 
@@ -86,6 +86,9 @@ echo -e "file changes"
 echo -e "------------------------------------------------------"
 
 echo -e "changing all uitoux occurrances to match sitename..."
+
+sed -i 's/libraries\[jquery_browser\]\[name\]((.|\r|\n)*)libraries\[omega_formalize\]\[css\]\[0\]\[options\].*//g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+
 sed -i 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 sed -i 's/omega_kickstart/uitoux_theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
 sed -i 's/UI To UX/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
@@ -112,3 +115,9 @@ drush vset theme_default "$sitename" > /dev/null 2> ~/errors.log
 
 echo -e "\n\n"
 echo -e "done!"
+
+
+
+
+
+
