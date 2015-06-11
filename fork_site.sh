@@ -87,7 +87,8 @@ echo -e "------------------------------------------------------"
 
 echo -e "changing all uitoux occurrances to match sitename..."
 
-sed -i 's/libraries\[jquery_browser\]\[name\]((.|\r|\n)*)libraries\[omega_formalize\]\[css\]\[0\]\[options\].*//g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/.*jquery_browser.*//g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
+sed -i 's/.*omega_formalize.*//g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 
 sed -i 's/uitoux_theme/'"$sitename"'/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info
 sed -i 's/omega_kickstart/uitoux_theme/g' ~/"$sitename".com/httpdocs/sites/"$sitename".com/themes/"$sitename"/"$sitename".info > /dev/null 2> ~/errors.log
@@ -115,9 +116,3 @@ drush vset theme_default "$sitename" > /dev/null 2> ~/errors.log
 
 echo -e "\n\n"
 echo -e "done!"
-
-
-
-
-
-
