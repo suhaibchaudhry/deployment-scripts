@@ -13,6 +13,11 @@ read dbuser
 echo -e "db password: \c"
 read dbpass
 
+echo -e "which drupal:"
+echo -e "1) commerce"
+echo -e "2) d7"
+read version
+
 echo -e "drupal username: \c"
 read drupaluser
 
@@ -40,10 +45,23 @@ echo -e "------------------------------------------------------"
 
 echo -e "creating site home folder..."
 mkdir ~/"$sitename".com > /dev/null 2> ~/errors.log
-echo -e "downloading latest drupal..."
-drush dl drupal > /dev/null 2> ~/errors.log
-echo -e "changing folder name to httpdocs..."
-mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+case $version in
+  '1')
+    echo -e "downloading commerce kickstart..."
+    drush dl commerce_kickstart > /dev/null 2> ~/errors.log
+    echo -e "changing folder name to httpdocs..."
+    mv commerce* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+    ;;
+  '2')
+    echo -e "downloading drupal 7 core..."
+    drush dl drupal-7 > /dev/null 2> ~/errors.log
+    echo -e "changing folder name to httpdocs..."
+    mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+    ;;
+  *)
+    echo "1 for commerce or 2 for d7: "
+    ;;
+esac
 echo -e "creating symbolic link for PHPMyAdmin..."
 ln -s /usr/share/phpmyadmin ~/"$sitename".com/httpdocs/ > /dev/null 2> ~/errors.log
 echo -e "renaming default to sitename in sites..."
