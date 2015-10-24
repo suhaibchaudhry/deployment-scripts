@@ -1,33 +1,23 @@
 #!/bin/bash
-echo -e "what username do you want to create: \c"
-read user
-username="$user"
+echo -e "setting default username:..."
+username="uitoux"
 
 echo -e "what is the domain name (e.g. uitoux.com): \c"
 read site
 sitename="$site"
 
+echo -e "setting site root directory..."
+rootdir="/home/'$username'/'$sitename'/httpdocs"
+
 echo -e "what password do you want to set for root: \c"
 read -s rootpassword
 rootpass="$rootpassword"
-
-echo -e "\nwhat password do you want to set for "$username": \c"
-read -s userpassword
-userpass="$userpassword"
 
 echo -e "\n\n\n"
 
 echo -e "changing password for root... \c"
 echo root:"$rootpass" | /usr/sbin/chpasswd
 echo -e "done!"
-
-echo -e "creating new group for "$username"... \c"
-groupadd "$username"
-echo -e "done!"
-echo -e "creating user "$username"... \c"
-useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
-echo -e "done!"
-echo "$username":"$userpass" | /usr/sbin/chpasswd
 
 echo -e "\n\n"
 
@@ -49,6 +39,9 @@ apt-get update -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "upgrading distro... \c"
 apt-get dist-upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "installing debconf utils... \c"
+apt-get install debconf-utils -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "setting preconfigured inputs for (( i = 0; i < 10; i++ )); do
 	#statements
@@ -75,20 +68,11 @@ echo -e "done!"
 echo -e "installing drush... \c"
 apt-get install drush -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "installing php5 cli... \c"
-apt-get install php5-cli -y > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo -e "installing php5 mcrypt... \c"
-apt-get install php5-mcrypt -y > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
 echo -e "enabling mcrypt... \c"
 php5enmod mcrypt > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing php5 curl... \c"
 apt-get install php5-curl -y > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo -e "installing php5 gd... \c"
-apt-get install php5-gd -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "\n\n"
@@ -121,14 +105,14 @@ echo -e "removing default sites-enabled... \c"
 rm /etc/nginx/sites-enabled/default
 echo -e "done!"
 echo -e "adding own sites-enabled file... \c"
-mv sample_se.com /etc/nginx/sites-enabled/
+mv nginx_template /etc/nginx/sites-enabled/
 echo -e "done!"
 echo -e "renaming the sites-enabled file to "$sitename"... \c"
-mv /etc/nginx/sites-enabled/sample_se.com /etc/nginx/sites-enabled/"$sitename"
+mv /etc/nginx/sites-enabled/nginx_template /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring "$sitename" file... \c"
-sed -i 's/uitoux/'"$username"'/g' /etc/nginx/sites-enabled/"$sitename"
-sed -i 's/'"$username"'.com/'"$sitename"'.com/g' /etc/nginx/sites-enabled/"$sitename"
+sed -i 's/$site_domain/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename"
+sed -i 's/$site_root/'"$rootidr"'/g' /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring php5... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf

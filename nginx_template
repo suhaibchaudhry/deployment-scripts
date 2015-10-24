@@ -1,10 +1,10 @@
 server {
      listen 80;
 
-     server_name $SITE_DOMAIN www.$SITE_DOMAIN;
+     server_name $site_domain www.$site_domain;
 
      location / {
-          root $SITE_ROOT;
+          root $site_root;
           index index.php index.html index.htm;
           try_files $uri $uri/ @rewrite;
           disable_symlinks off;
@@ -24,8 +24,8 @@ server {
          fastcgi_split_path_info ^(.+\.php)(.*)$;
          fastcgi_pass unix:/var/run/php5-fpm.sock;
          fastcgi_index index.php;
-         fastcgi_param SCRIPT_FILENAME $SITE_ROOT$fastcgi_script_name;
-         root $SITE_ROOT;
+         fastcgi_param SCRIPT_FILENAME $sire_root$fastcgi_script_name;
+         root $site_root;
          include fastcgi_params;
          fastcgi_param QUERY_STRING $query_string;
          fastcgi_param PATH_INFO $fastcgi_path_info;
