@@ -1,0 +1,11 @@
+mysqldump -uuser -ppassword database > backup.sql
+cp -R httpdocs httpdocs_dev
+cd httpdocs_dev/sites/
+ln -s sitename.com dev.sitename.com
+commit added smybolic link
+su root
+vi settings.php
+change username/password/dbname
+exit
+mysql create user/pass/dbname
+mysql -uuser -ppassword database < backup.sql
