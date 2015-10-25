@@ -27,26 +27,29 @@ echo -e "what password do you want to set for root in the database: \c"
 read -s dbrootpassword
 dbrootpass="$dbrootpassword"
 
-echo -e "drupal username: \c"
-read drupaluser
-
-echo -e "drupal password: \c"
-read drupalpass
-
 echo -e "db name: \c"
-read dbname
+read databasename
+dbname="$databasename"
 
 echo -e "db username: \c"
-read dbuser
+read databaseuser
+dbuser="$databaseuser"
 
 echo -e "db password: \c"
-read dbpass
+read databasepass
+dbpass="$databasepass"
 
 echo -e "changing password for root... \c"
 echo root:"$rootpass" | /usr/sbin/chpasswd > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
-
+echo -e "creating new group for "$username"... \c"
+groupadd "$username" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "creating user "$username"... \c"
+useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo "$username":"$userpass" | /usr/sbin/chpasswd > /dev/null 2> /home/"$username"/errors.log
 
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
