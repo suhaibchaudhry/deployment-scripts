@@ -126,14 +126,6 @@ echo -e "done!"
 
 echo -e "\n\n"
 
-echo -e "creating MYSQL database..."
-mysql --user="root" --password="$dbrootpass" -e "CREATE DATABASE $dbname" > /dev/null 2> /home/"$username"/errors.log
-echo -e "creating MYSQL user for specified database..."
-mysql --user="root" --password="$dbrootpass" -e "GRANT USAGE ON *.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpass'" > /dev/null 2> /home/"$username"/errors.log
-echo -e "granting privelages for user on database..."
-mysql --user="root" --password="$dbrootpass" -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost" > /dev/null 2> /home/"$username"/errors.log
-echo -e "flushing privelages to reset users/databases..."
-mysql --user="root" --password="$dbrootpass" -e "FLUSH PRIVILEGES" > /dev/null 2> /home/"$username"/errors.log
 
 echo -e "\n\n"
 
