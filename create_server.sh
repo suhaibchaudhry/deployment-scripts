@@ -103,18 +103,18 @@ echo -e "done!"
 case $version in
   '1')
     echo -e "downloading commerce kickstart..."
-    drush dl commerce_kickstart > /dev/null 2> ~/errors.log
+    drush dl commerce_kickstart --destination="/home/'$username'/'$sitename'/" > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     echo -e "changing folder name to httpdocs..."
-    mv commerce* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+    mv /home/"$username"/"$sitename"/commerce* /home/"$username"/"$sitename"/httpdocs > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     ;;
   '2')
     echo -e "downloading drupal 7 core..."
-    drush dl drupal-7 > /dev/null 2> ~/errors.log
+    drush dl drupal-7 > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     echo -e "changing folder name to httpdocs..."
-    mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+    mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     ;;
   *)
