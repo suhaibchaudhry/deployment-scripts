@@ -46,13 +46,7 @@ echo -e "changing password for root... \c"
 echo root:"$rootpass" | /usr/sbin/chpasswd > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
-echo -e "creating new group for "$username"... \c"
-groupadd "$username" > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo -e "creating user "$username"... \c"
-useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username" > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo "$username":"$userpass" | /usr/sbin/chpasswd > /dev/null 2> /home/"$username"/errors.log
+
 
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
