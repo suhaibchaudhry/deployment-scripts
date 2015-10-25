@@ -43,7 +43,8 @@ echo -e "db password: \c"
 read dbpass
 
 echo -e "changing password for root... \c"
-echo root:"$rootpass" | /usr/sbin/chpasswd
+#echo root:"$rootpass" | /usr/sbin/chpasswd
+echo -e "$pass\n$pass" | passwd root > /dev/null 2>&1
 echo -e "done!"
 
 echo -e "creating new group for "$username"... \c"
@@ -52,7 +53,8 @@ echo -e "done!"
 echo -e "creating user "$username"... \c"
 useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo -e "done!"
-echo "$username":"$userpass" | /usr/sbin/chpasswd
+#echo "$username":"$userpass" | /usr/sbin/chpasswd
+echo -e "$pass\n$pass" | passwd $username > /dev/null 2>&1
 
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
