@@ -103,7 +103,7 @@ echo -e "done!"
 case $version in
   '1')
     echo -e "downloading commerce kickstart..."
-    drush dl commerce_kickstart --destination="/home/'$username'/'$sitename'/" > /dev/null 2> /home/"$username"/errors.log
+    drush dl commerce_kickstart --destination="/home/$username/$sitename/" > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     echo -e "changing folder name to httpdocs..."
     mv /home/"$username"/"$sitename"/commerce* /home/"$username"/"$sitename"/httpdocs > /dev/null 2> /home/"$username"/errors.log
