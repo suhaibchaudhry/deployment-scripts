@@ -13,19 +13,28 @@ echo -e "what password do you want to set for root: \c"
 read -s rootpassword
 rootpass="$rootpassword"
 
-echo -e "\n\n\n"
+echo -e "\n"
 
 echo -e "changing password for root... \c"
 echo root:"$rootpass" | /usr/sbin/chpasswd
 echo -e "done!"
 
-echo -e "\n\n"
+echo -e "\n"
 
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "updating/upgrading package list and distro... \c"
-apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "updating package list... \c"
+apt-get update -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "upgrading packages... \c"
+apt-get upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "upgrading distro... \c"
+apt-get dist-upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "removing unutilized packages... \c"
+apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing nginx... \c"
 apt-get install nginx -y > /dev/null 2> /home/"$username"/errors.log
@@ -37,8 +46,17 @@ echo -e "adding repo to sources list... \c"
 echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo -e "done!"
-echo -e "updating/upgrading package list and distro... \c"
-apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "updating package list... \c"
+apt-get update -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "upgrading packages... \c"
+apt-get upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "upgrading distro... \c"
+apt-get dist-upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "removing unutilized packages... \c"
+apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing debconf utils... \c"
 apt-get install debconf-utils -y > /dev/null 2> /home/"$username"/errors.log
@@ -130,8 +148,17 @@ echo -e "done!"
 
 echo -e "\n\n"
 
-echo -e "updating/upgrading package list and distro... \c"
-apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "updating package list... \c"
+apt-get update -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "upgrading packages... \c"
+apt-get upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "upgrading distro... \c"
+apt-get dist-upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "removing unutilized packages... \c"
+apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "\n\n"
