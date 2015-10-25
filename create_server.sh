@@ -97,7 +97,7 @@ echo -e "creating "$sitename" directory... \c"
 mkdir /home/"$username"/"$sitename"
 echo -e "done!"
 echo -e "owning "$sitename" directory... \c"
-chown -R "$username":"$useranme" /home/"$username"/"$sitename"
+chown -R "$username":"$username" /home/"$username"/"$sitename"
 echo -e "done!"
 echo -e "retrieving drupal... \c"
 wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
@@ -138,10 +138,10 @@ echo -e "creating link to phpmyadmin in httpdocs... \c"
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
 echo -e "done!"
 echo -e "rename default in sites folder to "$sitename"... \c"
-su "$username" -c 'mv /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com'
+su "$username" -c 'mv /home/'"$username"'/'"$sitename"'/httpdocs/sites/default /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"''
 echo -e "done!"
 echo -e "create symbolic link of "$sitename" and call it default... \c"
-su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default'
+su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"' /home/'"$username"'/'"$sitename"'/httpdocs/sites/default'
 echo -e "done!"
 
 echo -e "\n\n"
