@@ -45,6 +45,7 @@ read dbpass
 echo -e "changing password for root... \c"
 #echo root:"$rootpass" | /usr/sbin/chpasswd
 echo -e "$pass\n$pass" | passwd root > /dev/null 2>&1
+passwd -u root
 echo -e "done!"
 
 echo -e "creating new group for "$username"... \c"
