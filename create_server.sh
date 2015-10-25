@@ -13,13 +13,14 @@ echo -e "what password do you want to set for root: \c"
 read -s rootpassword
 rootpass="$rootpassword"
 
-echo -e "\n"
+echo -e "which drupal:"
+echo -e "1) commerce"
+echo -e "2) d7"
+read version
 
 echo -e "changing password for root... \c"
 echo root:"$rootpass" | /usr/sbin/chpasswd
 echo -e "done!"
-
-echo -e "\n"
 
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
@@ -99,18 +100,27 @@ echo -e "done!"
 echo -e "owning "$sitename" directory... \c"
 chown -R "$username":"$username" /home/"$username"/"$sitename"
 echo -e "done!"
-echo -e "retrieving drupal... \c"
-wget http://ftp.drupal.org/files/projects/drupal-7.34.tar.gz -P /home/"$username"/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo -e "extracing drupal... \c"
-tar -xvzf /home/"$username"/"$sitename"/drupal-7.34.tar.gz -C /home/"$username"/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo -e "removing drupal tar file... \c"
-rm /home/"$username"/"$sitename"/drupal-7.34.tar.gz
-echo -e "done!"
-echo -e "renaming drupal file to httpdocs... \c"
-mv /home/"$username"/"$sitename"/drupal-7.34 /home/"$username"/"$sitename"/httpdocs
-echo -e "done!"
+case $version in
+  '1')
+    echo -e "downloading commerce kickstart..."
+    drush dl commerce_kickstart > /dev/null 2> ~/errors.log
+		echo -e "done!"
+    echo -e "changing folder name to httpdocs..."
+    mv commerce* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+		echo -e "done!"
+    ;;
+  '2')
+    echo -e "downloading drupal 7 core..."
+    drush dl drupal-7 > /dev/null 2> ~/errors.log
+		echo -e "done!"
+    echo -e "changing folder name to httpdocs..."
+    mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> ~/errors.log
+		echo -e "done!"
+    ;;
+  *)
+    echo "1 for commerce or 2 for d7: "
+    ;;
+esac
 echo -e "owning httpdocs... \c"
 chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 echo -e "done!"
