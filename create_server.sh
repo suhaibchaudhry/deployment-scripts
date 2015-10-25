@@ -7,7 +7,7 @@ read site
 sitename="$site"
 
 echo -e "setting site root directory..."
-rootdir="test"
+rootdir="$sitename"
 
 echo -e "what password do you want to set for root: \c"
 read -s rootpassword
