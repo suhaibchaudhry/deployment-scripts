@@ -24,6 +24,9 @@ echo -e "\n\n"
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
+echo -e "updating/upgrading package list and distro... \c"
+apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "installing nginx... \c"
 apt-get install nginx -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
@@ -34,11 +37,8 @@ echo -e "adding repo to sources list... \c"
 echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 echo -e "done!"
-echo -e "updating package list... \c"
-apt-get update -y > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
-echo -e "upgrading distro... \c"
-apt-get dist-upgrade -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "updating/upgrading package list and distro... \c"
+apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing debconf utils... \c"
 apt-get install debconf-utils -y > /dev/null 2> /home/"$username"/errors.log
@@ -126,6 +126,12 @@ su "$username" -c 'mv /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/defau
 echo -e "done!"
 echo -e "create symbolic link of "$sitename" and call it default... \c"
 su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/'"$sitename"'.com /home/'"$username"'/'"$sitename"'.com/httpdocs/sites/default'
+echo -e "done!"
+
+echo -e "\n\n"
+
+echo -e "updating/upgrading package list and distro... \c"
+apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "\n\n"
