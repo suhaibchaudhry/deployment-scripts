@@ -105,7 +105,7 @@ echo -e "done!"
 #echo "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" | debconf-set-selections
 #echo -e "done!"
 echo -e "installing percona... \c"
-apt-get install percona-server-server-5.5 percona-server-client-5.5 -y > /dev/null 2> /home/"$username"/errors.log
+apt-get install -y percona-server-server-5.5 percona-server-client-5.5
 echo -e "done!"
 echo -e "change root password for percona... \c"
 echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD($dbrootpass);" | mysql -uroot
