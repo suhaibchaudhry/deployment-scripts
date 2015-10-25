@@ -1,4 +1,5 @@
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
 echo -e "what username do you want to create: \c"
 read user
 username="$user"
@@ -45,7 +46,7 @@ read dbpass
 echo -e "changing password for root... \c"
 #echo root:"$rootpass" | /usr/sbin/chpasswd
 echo -e "$rootpass\n$rootpass" | passwd root > /dev/null 2>&1
-passwd -u root
+passwd -u root > /dev/null 2>&1
 echo -e "done!"
 
 echo -e "creating new group for "$username"... \c"
@@ -97,14 +98,17 @@ echo -e "done!"
 echo -e "installing debconf utils... \c"
 apt-get install debconf-utils -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "setting preconfigured inputs for percona... \c"
-debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
-debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
+#echo -e "setting preconfigured inputs for percona... \c"
+#debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
+#debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
 #echo "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" | debconf-set-selections
 #echo "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" | debconf-set-selections
-echo -e "done!"
+#echo -e "done!"
 echo -e "installing percona... \c"
 apt-get install percona-server-server-5.5 percona-server-client-5.5 -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "change root password for percona... \c"
+echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD($dbrootpass);" | mysql -uroot
 echo -e "done!"
 echo -e "installing php5... \c"
 apt-get install php5-fpm -y > /dev/null 2> /home/"$username"/errors.log
