@@ -112,7 +112,7 @@ mv /etc/nginx/sites-enabled/nginx_template /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring "$sitename" file... \c"
 sed -i 's/$site_domain/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename"
-sed -i 's/$site_root/'"$rootdir"'/g' /etc/nginx/sites-enabled/"$sitename"
+sed -i 's#$site_root#'"$rootdir"'#g' /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring php5... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
