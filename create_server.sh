@@ -95,8 +95,8 @@ echo -e "installing debconf utils... \c"
 apt-get install debconf-utils -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "setting preconfigured inputs for percona... \c"
-echo "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" | debconf-set-selections
-echo "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" | debconf-set-selections
+echo "percona-server-server-5.5 percona-server-server/root_password password '$dbrootpass'" | debconf-set-selections
+echo "percona-server-server-5.5 percona-server-server/root_password_again password '$dbrootpass'" | debconf-set-selections
 echo -e "done!"
 echo -e "installing percona... \c"
 apt-get install percona-server-server-5.5 percona-server-client-5.5 -y > /dev/null 2> /home/"$username"/errors.log
@@ -106,9 +106,9 @@ apt-get install php5-fpm -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "setting preconfigured inputs for phpmyadmin... \c"
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
-echo "phpmyadmin phpmyadmin/app-password-confirm password $dbrootpass" | debconf-set-selections
-echo "phpmyadmin phpmyadmin/mysql/admin-pass password $dbrootpass" | debconf-set-selections
-echo "phpmyadmin phpmyadmin/mysql/app-pass password $dbrootpass" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/app-password-confirm password '$dbrootpass'" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-pass password '$dbrootpass'" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/app-pass password '$dbrootpass'" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debconf-set-selections
 echo -e "done!"
 echo -e "installing phpmyadmin... \c"
@@ -126,6 +126,14 @@ echo -e "done!"
 
 echo -e "\n\n"
 
+echo -e "creating MYSQL database..."
+mysql --user="root" --password="$dbrootpass" -e "CREATE DATABASE $dbname" > /dev/null 2> /home/"$username"/errors.log
+echo -e "creating MYSQL user for specified database..."
+mysql --user="root" --password="$dbrootpass" -e "GRANT USAGE ON *.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpass'" > /dev/null 2> /home/"$username"/errors.log
+echo -e "granting privelages for user on database..."
+mysql --user="root" --password="$dbrootpass" -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost" > /dev/null 2> /home/"$username"/errors.log
+echo -e "flushing privelages to reset users/databases..."
+mysql --user="root" --password="$dbrootpass" -e "FLUSH PRIVILEGES" > /dev/null 2> /home/"$username"/errors.log
 
 echo -e "\n\n"
 
