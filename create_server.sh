@@ -154,10 +154,10 @@ case $version in
     ;;
   '2')
     echo -e "downloading drupal 7 core..."
-    drush dl drupal-7 > /dev/null 2> /home/"$username"/errors.log
+    drush dl drupal-7 --destination="/home/$username/$sitename/" > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     echo -e "changing folder name to httpdocs..."
-    mv drupal* ~/"$sitename".com/httpdocs > /dev/null 2> /home/"$username"/errors.log
+    mv /home/"$username"/"$sitename"/drupal* /home/"$username"/"$sitename"/httpdocs > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     ;;
   *)
