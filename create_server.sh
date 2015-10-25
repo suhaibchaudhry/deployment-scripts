@@ -27,29 +27,32 @@ echo -e "what password do you want to set for root in the database: \c"
 read -s dbrootpassword
 dbrootpass="$dbrootpassword"
 
+echo -e "drupal username: \c"
+read drupaluser
+
+echo -e "drupal password: \c"
+read drupalpass
+
 echo -e "db name: \c"
-read databasename
-dbname="$databasename"
+read dbname
 
 echo -e "db username: \c"
-read databaseuser
-dbuser="$databaseuser"
+read dbuser
 
 echo -e "db password: \c"
-read databasepass
-dbpass="$databasepass"
+read dbpass
 
 echo -e "changing password for root... \c"
-echo root:"$rootpass" | /usr/sbin/chpasswd > /dev/null 2> /home/"$username"/errors.log
+echo root:"$rootpass" | /usr/sbin/chpasswd
 echo -e "done!"
 
 echo -e "creating new group for "$username"... \c"
-groupadd "$username" > /dev/null 2> /home/"$username"/errors.log
+groupadd "$username"
 echo -e "done!"
 echo -e "creating user "$username"... \c"
-useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username" > /dev/null 2> /home/"$username"/errors.log
+useradd -s /bin/bash -m "$username" -d /home/"$username" -g "$username"
 echo -e "done!"
-echo "$username":"$userpass" | /usr/sbin/chpasswd > /dev/null 2> /home/"$username"/errors.log
+echo "$username":"$userpass" | /usr/sbin/chpasswd
 
 echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
