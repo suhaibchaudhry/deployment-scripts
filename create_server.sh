@@ -62,7 +62,7 @@ echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "updating package list... \c"
-apt-get update -y > /dev/null 2> /home/"$username"/errors.log
+apt-get update -ysuo > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "upgrading packages... \c"
 apt-get upgrade -y > /dev/null 2> /home/"$username"/errors.log
@@ -108,7 +108,7 @@ echo -e "installing percona... \c"
 apt-get install -y percona-server-server-5.5 percona-server-client-5.5
 echo -e "done!"
 echo -e "change root password for percona... \c"
-echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD($dbrootpass);" | mysql -uroot
+echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$dbrootpass');" | mysql -uroot
 echo -e "done!"
 echo -e "installing php5... \c"
 apt-get install php5-fpm -y > /dev/null 2> /home/"$username"/errors.log
