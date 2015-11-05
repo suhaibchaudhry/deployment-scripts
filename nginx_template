@@ -24,7 +24,7 @@ server {
          fastcgi_split_path_info ^(.+\.php)(.*)$;
          fastcgi_pass unix:/var/run/php5-fpm.sock;
          fastcgi_index index.php;
-         fastcgi_param SCRIPT_FILENAME $sire_root$fastcgi_script_name;
+         fastcgi_param SCRIPT_FILENAME $site_root$fastcgi_script_name;
          root $site_root;
          include fastcgi_params;
          fastcgi_param QUERY_STRING $query_string;

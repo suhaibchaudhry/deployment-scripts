@@ -188,10 +188,10 @@ echo -e "removing default sites-enabled... \c"
 rm /etc/nginx/sites-enabled/default
 echo -e "done!"
 echo -e "adding own sites-enabled file... \c"
-mv nginx_template /etc/nginx/sites-enabled/
+cp -f nginx_template /etc/nginx/sites-enabled/
 echo -e "done!"
 echo -e "renaming the sites-enabled file to "$sitename"... \c"
-mv /etc/nginx/sites-enabled/nginx_template /etc/nginx/sites-enabled/"$sitename"
+cp -f /etc/nginx/sites-enabled/nginx_template /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring "$sitename" file... \c"
 sed -i 's/$site_domain/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename"
