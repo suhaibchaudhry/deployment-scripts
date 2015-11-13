@@ -98,17 +98,17 @@ echo -e "done!"
 echo -e "installing debconf utils... \c"
 apt-get install debconf-utils -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-#echo -e "setting preconfigured inputs for percona... \c"
-#debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
-#debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
-#echo "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" | debconf-set-selections
-#echo "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" | debconf-set-selections
-#echo -e "done!"
+echo -e "setting preconfigured inputs for percona... \c"
+debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
+debconf-set-selections <<< "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
+echo "percona-server-server-5.5 percona-server-server/root_password password $dbrootpass" | debconf-set-selections
+echo "percona-server-server-5.5 percona-server-server/root_password_again password $dbrootpass" | debconf-set-selections
+echo -e "done!"
 echo -e "installing percona... \c"
-apt-get install -y percona-server-server-5.5 percona-server-client-5.5
+apt-get install -y percona-server-server-5.5 percona-server-client-5.5 > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "change root password for percona... \c"
-echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$dbrootpass');" | mysql -uroot
+echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$dbrootpass');" | mysql -uroot > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing php5... \c"
 apt-get install php5-fpm -y > /dev/null 2> /home/"$username"/errors.log
@@ -119,11 +119,6 @@ debconf-set-selections <<< "phpmyadmin phpmyadmin/app-password-confirm password 
 debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
 debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
 debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" > /dev/null 2> /home/"$username"/errors.log
-#echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
-#echo "phpmyadmin phpmyadmin/app-password-confirm password $dbrootpass" | debconf-set-selections
-#echo "phpmyadmin phpmyadmin/mysql/admin-pass password $dbrootpass" | debconf-set-selections
-#echo "phpmyadmin phpmyadmin/mysql/app-pass password $dbrootpass" | debconf-set-selections
-#echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect lighttpd" | debconf-set-selections
 echo -e "done!"
 echo -e "installing phpmyadmin... \c"
 apt-get install phpmyadmin -y > /dev/null 2> /home/"$username"/errors.log
