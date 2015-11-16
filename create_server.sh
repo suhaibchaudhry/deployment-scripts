@@ -15,6 +15,9 @@ echo -e "what password do you want to set for root: \c"
 read -s rootpassword
 rootpass="$rootpassword"
 
+echo -e "do you want to install memcached on the server (y/n): \c"
+read memcached
+
 echo -e "\nwhat password do you want to set for "$username": \c"
 read -s userpassword
 userpass="$userpassword"
@@ -188,6 +191,9 @@ echo -e "done!"
 echo -e "renaming the sites-enabled file to "$sitename"... \c"
 cp -f /etc/nginx/sites-enabled/nginx_template /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
+echo -e "removing nginx template file... \c"
+rm /etc/nginx/sites-enabled/nginx_template
+echo -e "done!"
 echo -e "configuring "$sitename" file... \c"
 sed -i 's/$site_domain/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename"
 sed -i 's#$site_root#'"$rootdir"'#g' /etc/nginx/sites-enabled/"$sitename"
@@ -231,6 +237,18 @@ service php5-fpm restart > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "\n\n"
+
+echo -e "do you want to install memcached on the server? \c"
+case $memcached in
+  'yes')
+    source memcached_install.sh
+    ;;
+  'no')
+    ;;
+  *)
+    echo "1 for commerce or 2 for d7: "
+    ;;
+esac
 
 echo -e "restarting server, please stand by..."
 reboot
