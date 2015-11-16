@@ -28,7 +28,7 @@ echo -e "what password do you want to set for root in the database: \c"
 read -s dbrootpassword
 dbrootpass="$dbrootpassword"
 
-echo -e "drupal username: \c"
+echo -e "\cdrupal username: \c"
 read drupaluser
 
 echo -e "drupal password: \c"
