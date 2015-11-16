@@ -238,15 +238,15 @@ echo -e "done!"
 
 echo -e "\n\n"
 
-echo -e "do you want to install memcached on the server? \c"
 case $memcached in
   'y')
+    echo -e "installing memcached...\c"
     source memcached_install.sh
     ;;
   'n')
     ;;
   *)
-    echo "1 for commerce or 2 for d7: "
+    echo "y for memcached or n for regular server installation: "
     ;;
 esac
 
