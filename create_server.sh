@@ -18,7 +18,7 @@ rootpass="$rootpassword"
 echo -e "\ndo you want to install memcached on the server (y/n): \c"
 read memcached
 
-echo -e "\nwhat password do you want to set for "$username": \c"
+echo -e "what password do you want to set for "$username": \c"
 read -s userpassword
 userpass="$userpassword"
 
@@ -37,7 +37,7 @@ read drupaluser
 echo -e "drupal password: \c"
 read -s drupalpass
 
-echo -e "db name: \c"
+echo -e "\ndb name: \c"
 read dbname
 
 echo -e "db username: \c"
