@@ -240,10 +240,10 @@ echo -e "\n\n"
 
 echo -e "do you want to install memcached on the server? \c"
 case $memcached in
-  'yes')
+  'y')
     source memcached_install.sh
     ;;
-  'no')
+  'n')
     ;;
   *)
     echo "1 for commerce or 2 for d7: "
