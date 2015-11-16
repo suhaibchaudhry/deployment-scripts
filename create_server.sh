@@ -15,7 +15,7 @@ echo -e "what password do you want to set for root: \c"
 read -s rootpassword
 rootpass="$rootpassword"
 
-echo -e "do you want to install memcached on the server (y/n): \c"
+echo -e "\ndo you want to install memcached on the server (y/n): \c"
 read memcached
 
 echo -e "\nwhat password do you want to set for "$username": \c"
@@ -31,11 +31,11 @@ echo -e "what password do you want to set for root in the database: \c"
 read -s dbrootpassword
 dbrootpass="$dbrootpassword"
 
-echo -e "\cdrupal username: \c"
+echo -e "\ndrupal username: \c"
 read drupaluser
 
 echo -e "drupal password: \c"
-read drupalpass
+read -s drupalpass
 
 echo -e "db name: \c"
 read dbname
@@ -44,7 +44,7 @@ echo -e "db username: \c"
 read dbuser
 
 echo -e "db password: \c"
-read dbpass
+read -s dbpass
 
 echo -e "changing password for root... \c"
 #echo root:"$rootpass" | /usr/sbin/chpasswd
