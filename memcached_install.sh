@@ -15,7 +15,7 @@ echo -e "installing igbinary...\c"
 pecl install igbinary > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "adding igbinary.so to ini file... \c"
-echo extension="igbinary.so" > /etc/php5/mods-available/igbinary.ini > /dev/null 2> /home/"$username"/errors.log
+echo 'extension="igbinary.so"' > /etc/php5/mods-available/igbinary.ini > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "making symbolic links to ini... \c"
 cd /etc/php5/fpm/conf.d && ln -s ../../mods-available/igbinary.ini 05-igbinary.ini > /dev/null 2> /home/"$username"/errors.log
