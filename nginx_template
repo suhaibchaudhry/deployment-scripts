@@ -8,7 +8,7 @@ server {
           index index.php index.html index.htm;
           try_files $uri $uri/ @rewrite;
           disable_symlinks off;
-          autoindex on;
+          autoindex off;
      }
 
      location @rewrite {
