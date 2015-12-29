@@ -1,12 +1,13 @@
 #!/bin/bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export DEBIAN_FRONTEND=noninteractive
 echo -e "what username do you want to create: \c"
 read user
 username="$user"
 
-echo -e "what is the domain name (e.g. uitoux.com): \c"
+echo -e "what is the domain name (e.g. uitoux): \c"
 read site
-sitename="$site"
+sitename="$site.com"
 
 echo -e "setting site root directory..."
 rootdir="/home/$username/$sitename/httpdocs"
@@ -225,6 +226,71 @@ su "$username" -c 'drush en libraries -y' > /dev/null 2> /home/"$username"/error
 echo -e "done!"
 
 echo -e "\n\n"
+
+echo -e "removing all files/folders inside all/themes..."
+rm -rf /home/"$username"/"$sitename"/httpdocs/sites/all/themes/* > /dev/null 2> /home/"$username"/errors.log
+echo -e "getting ui to ux base theme..."
+git clone https://suhaib_uitoux:underwater908@bitbucket.org/uitouxteam/ui-to-ux-theme-kit.git /home/"$username"/"$sitename"/httpdocs/sites/all/themes/ > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+
+echo -e "\n"
+
+echo -e "changing directory to run drush..."
+cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename" > /dev/null 2> /home/"$username"/errors.log
+echo -e "running drush to install site..."
+drush site-install standard --account-name="$drupaluser" --account-pass="$drupalpass" --db-url=mysql://"$dbuser":"$dbpass"@localhost/"$dbname" -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "changing permissions for site folder..."
+chmod +w /home/"$username"/"$sitename"/httpdocs/sites/"$sitename" > /dev/null 2> /home/"$username"/errors.log
+echo -e "creating themes directory..."
+mkdir /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
+echo -e "copying over uitoux base theme..."
+cp -R /home/"$username"/"$sitename"/httpdocs/sites/all/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
+echo -e "changing uitoux base theme name to suit subtheme..."
+mv /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site" > /dev/null 2> /home/"$username"/errors.log
+echo -e "renaming info file within subtheme..."
+rename -v 's/uitoux_theme/'"$sitename"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
+
+rm -rf /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/*
+cp "$DIR"/templates/js_template.js /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
+
+sed -i 's/THEMENAME/'"$sitename"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
+
+echo -e "\n"
+
+echo -e "file changes"
+echo -e "------------------------------------------------------"
+
+echo -e "changing all uitoux occurrances to match sitename..."
+
+sed -i 's/.*jquery_browser.*//g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
+sed -i 's/.*omega_formalize.*//g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
+
+sed -i 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
+sed -i 's/omega_kickstart/uitoux_theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
+sed -i 's/UI To UX/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
+sed -i 's/UI To UX Theme/'"$site"' Theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info*** > /dev/null 2> /home/"$username"/errors.log
+sed -i 's/UI To UX Base Theme/'"$site"' Theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
+sed -i 's/UI To UX Theme/'"$site"' Theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
+sed -i 's/package = '"$site"'/package = UI To UX/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
+echo -e "changing all files within subdirectory to match sitename..."
+rename -v 's/uitoux-theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/css/*.* > /dev/null 2> /home/"$username"/errors.log
+rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/css/*.* > /dev/null 2> /home/"$username"/errors.log
+rename -v 's/uitoux-theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/scss/*.* > /dev/null 2> /home/"$username"/errors.log
+rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/scss/*.* > /dev/null 2> /home/"$username"/errors.log
+rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/*.* > /dev/null 2> /home/"$username"/errors.log
+echo -e "removing default.settings.php file..."
+rm /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/default.settings.php > /dev/null 2> /home/"$username"/errors.log
+echo -e "replacing template.php with empty template.php..."
+rm /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/template.php > /dev/null 2> /home/"$username"/errors.log
+touch /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/template.php > /dev/null 2> /home/"$username"/errors.log
+echo -e "setting up new theme for first time use..."
+cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
+drush pm-enable uitoux_theme -y > /dev/null 2> /home/"$username"/errors.log
+drush pm-enable "$site" -y > /dev/null 2> /home/"$username"/errors.log
+drush vset theme_default "$site" > /dev/null 2> /home/"$username"/errors.log
+
+echo -e "\n\n"
+echo -e "done!"
 
 echo -e "updating package list... \c"
 apt-get update -y > /dev/null 2> /home/"$username"/errors.log
