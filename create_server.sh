@@ -219,6 +219,10 @@ echo -e "done!"
 echo -e "create symbolic link of "$sitename" and call it default... \c"
 su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"' /home/'"$username"'/'"$sitename"'/httpdocs/sites/default'
 echo -e "done!"
+echo -e "installing libraries module... \c"
+cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
+su "$username" -c 'drush en libraries -y' > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 
 echo -e "\n\n"
 
