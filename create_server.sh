@@ -18,6 +18,9 @@ rootpass="$rootpassword"
 echo -e "\ndo you want to install memcached on the server (y/n): \c"
 read memcached
 
+echo -e "\ndo you want to install sass on the server (y\n): \c"
+read sass_compass
+
 echo -e "what password do you want to set for "$username": \c"
 read -s userpassword
 userpass="$userpassword"
@@ -155,6 +158,7 @@ echo -e "done!"
 echo -e "owning "$sitename" directory... \c"
 chown -R "$username":"$username" /home/"$username"/"$sitename"
 echo -e "done!"
+
 case $version in
   '1')
     echo -e "downloading commerce kickstart..."
@@ -176,6 +180,7 @@ case $version in
     echo "1 for commerce or 2 for d7: "
     ;;
 esac
+
 echo -e "owning httpdocs... \c"
 chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 echo -e "done!"
@@ -241,7 +246,7 @@ echo -e "\n\n"
 case $memcached in
   'y')
     echo -e "installing memcached...\c"
-    source memcached_install.sh
+    source memcached_install.sh > /dev/null 2> /home/"$username"/errors.log
     ;;
   'n')
     ;;
@@ -249,6 +254,22 @@ case $memcached in
     echo "y for memcached or n for regular server installation: "
     ;;
 esac
+
+echo -e "\n\n"
+
+case $sass_compass in
+  'y')
+    echo -e "installing sass and compass...\c"
+    source sass_compass_install.sh > /dev/null 2> /home/"$username"/errors.log
+    ;;
+  'n')
+    ;;
+  *)
+    echo "y for sass or n for regular server installation: "
+    ;;
+esac
+
+echo -e "\n\n"
 
 echo -e "restarting server, please stand by..."
 reboot
