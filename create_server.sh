@@ -184,6 +184,9 @@ esac
 echo -e "owning httpdocs... \c"
 chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 echo -e "done!"
+echo -e "initialize git repo... \c"
+su "$username" -c 'git init /home/'"$username"'/'"$sitename"'/httpdocs'
+echo -e "done!"
 echo -e "configuring nginx.conf... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/nginx/nginx.conf
 echo -e "done!"
