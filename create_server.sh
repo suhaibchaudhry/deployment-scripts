@@ -265,6 +265,8 @@ echo -e "changing all uitoux occurrances to match sitename..."
 sed -i 's/.*jquery_browser.*//g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
 sed -i 's/.*omega_formalize.*//g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
 
+rm  /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/preprocess/*.inc
+
 sed -i 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
 sed -i 's/omega_kickstart/uitoux_theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
 sed -i 's/UI To UX/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
