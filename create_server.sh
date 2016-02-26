@@ -19,7 +19,7 @@ rootpass="$rootpassword"
 echo -e "\ndo you want to install memcached on the server (y/n): \c"
 read memcached
 
-echo -e "\ndo you want to install sass on the server (y\n): \c"
+echo -e "\ndo you want to install sass on the server (y/n): \c"
 read sass_compass
 
 echo -e "what password do you want to set for "$username": \c"
