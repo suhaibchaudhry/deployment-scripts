@@ -69,7 +69,7 @@ echo -e "adding nginx repo... \c"
 apt-add-repository ppa:nginx/stable -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "updating package list... \c"
-apt-get update -ysuo > /dev/null 2> /home/"$username"/errors.log
+apt-get update -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "upgrading packages... \c"
 apt-get upgrade -y > /dev/null 2> /home/"$username"/errors.log
