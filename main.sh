@@ -4,7 +4,7 @@ read newServerAnswer
 
 case $newServerAnswer in
   'y')
-    echo -e "launching server setup...\c"
+    echo -e "launching server setup...\n"
     source create_server.sh
     ;;
   'n')
@@ -29,23 +29,23 @@ do
 
   case $todo in
     '1')
-      echo -e "launching sass setup...\c"
+      echo -e "launching sass setup...\n"
       source create_server.sh
       ;;
     '2')
-      echo -e "launching memcached setup...\c"
+      echo -e "launching memcached setup...\n"
       source memcached_install.sh
       ;;
     '3')
       apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
       ;;
     '4')
-      echo -e "launching website fork setup...\c"
+      echo -e "launching website fork setup...\n"
       source fork_site.sh
       ;;
     '5')
-      echo -e "launching database dump...\c"
-      echo -e "under developement, check back again later! \c"
+      echo -e "launching database dump...\n"
+      echo -e "under developement, check back again later! \n"
     *)
       echo "y for memcached or n for regular server installation: "
       ;;
