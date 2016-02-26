@@ -5,7 +5,7 @@ read newServerAnswer
 case $newServerAnswer in
   'y')
     echo -e "launching server setup...\c"
-    source create_server.sh > /dev/null 2> /home/"$username"/errors.log
+    source create_server.sh
     ;;
   'n')
     read username=$(who | awk '{ print $1; exit}') > /dev/null 2> /home/"$username"/errors.log
@@ -30,18 +30,18 @@ do
   case $todo in
     '1')
       echo -e "launching sass setup...\c"
-      source create_server.sh > /dev/null 2> /home/"$username"/errors.log
+      source create_server.sh
       ;;
     '2')
       echo -e "launching memcached setup...\c"
-      source memcached_install.sh > /dev/null 2> /home/"$username"/errors.log
+      source memcached_install.sh
       ;;
     '3')
       apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
       ;;
     '4')
       echo -e "launching website fork setup...\c"
-      source fork_site.sh > /dev/null 2> /home/"$username"/errors.log
+      source fork_site.sh
       ;;
     '5')
       echo -e "launching database dump...\c"
