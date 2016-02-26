@@ -30,7 +30,7 @@ do
   case $todo in
     '1')
       echo -e "launching sass setup...\n"
-      source create_server.sh
+      source sass_compass_install.sh
       ;;
     '2')
       echo -e "launching memcached setup...\n"
