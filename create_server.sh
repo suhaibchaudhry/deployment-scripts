@@ -205,7 +205,7 @@ rm /etc/nginx/sites-enabled/nginx_template
 echo -e "done!"
 echo -e "configuring "$sitename" file... \c"
 sed -i 's/$site_domain/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename"
-sed -i 's/$site_root/'"$rootdir"'#g' /etc/nginx/sites-enabled/"$sitename"
+sed -i 's/$site_root/'"$rootdir"'/g' /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
 echo -e "configuring php5... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
@@ -248,7 +248,7 @@ cp -R /home/"$username"/"$sitename"/httpdocs/sites/all/themes/uitoux_theme /home
 echo -e "changing uitoux base theme name to suit subtheme..."
 mv /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site" > /dev/null 2> /home/"$username"/errors.log
 echo -e "renaming info file within subtheme..."
-rename -v 's/uitoux_theme/'"$sitename"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
+rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
 
 rm -rf /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/*
 cp "$DIR"/templates/js_template.js /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
