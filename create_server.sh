@@ -250,7 +250,6 @@ mv /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/uitoux_theme 
 echo -e "renaming info file within subtheme..."
 rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
 
-rm -rf /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/*
 cp "$DIR"/templates/js_template.js /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
 
 sed -i 's/THEMENAME/'"$sitename"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
