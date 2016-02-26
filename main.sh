@@ -15,7 +15,7 @@ case $newServerAnswer in
     ;;
 esac
 
-$repeatAnswer="y"
+repeatAnswer="y"
 
 while [ $repeatAnswer = "y" ];
 do
