@@ -46,6 +46,7 @@ do
     '5')
       echo -e "launching database dump...\n"
       echo -e "under developement, check back again later! \n"
+      ;;
     *)
       echo "y for memcached or n for regular server installation: "
       ;;

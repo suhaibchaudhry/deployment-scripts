@@ -320,7 +320,7 @@ echo -e "\n\n"
 case $memcached in
   'y')
     echo -e "installing memcached...\c"
-    source memcached_install.sh > /dev/null 2> /home/"$username"/errors.log
+    source memcached_install.sh
     ;;
   'n')
     ;;
@@ -334,7 +334,7 @@ echo -e "\n\n"
 case $sass_compass in
   'y')
     echo -e "installing sass and compass...\c"
-    source sass_compass_install.sh > /dev/null 2> /home/"$username"/errors.log
+    source sass_compass_install.sh
     ;;
   'n')
     ;;
