@@ -345,6 +345,3 @@ case $sass_compass in
 esac
 
 echo -e "\n\n"
-
-echo -e "restarting server, please stand by..."
-reboot
