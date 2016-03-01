@@ -1,0 +1,40 @@
+@mixin social-media-button($image) {
+  //@extend .social_media-#{$spriteName};
+  @include social_media-sprite($image, true);
+  text-indent: -9999px;
+
+  &:hover {
+    //@extend .social_media-#{$spriteName}-h;
+    @include social_media-sprite(#{$image}-h);
+  }
+}
+ 
+@import "_mixins.scss";
+@import "compass/utilities/sprites";
+@import "social_media/*.png";
+ 
+//@include all-social_media-sprites;
+
+a.social-button {
+        float: left;
+}
+
+a.twitter-button {
+        @include social-media-button(twitter);
+}
+
+a.facebook-button {
+        @include social-media-button(fbook);
+}
+
+a.youtube-button {
+        @include social-media-button(youtube);
+}
+
+//.address {
+//	@include social-media-button(location);
+//}
+
+//.phone-number {
+//	@include social-media-button(phone);
+//}
