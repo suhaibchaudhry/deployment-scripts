@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 echo -e "is this a new server? (y/n) \c"
 read newServerAnswer
 

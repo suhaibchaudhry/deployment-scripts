@@ -1,7 +1,7 @@
 #!/bin/bash
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
 export DEBIAN_FRONTEND=noninteractive
+
 echo -e "what username do you want to create: \c"
 read user
 username="$user"
@@ -244,12 +244,31 @@ echo -e "changing permissions for site folder..."
 chmod +w /home/"$username"/"$sitename"/httpdocs/sites/"$sitename" > /dev/null 2> /home/"$username"/errors.log
 echo -e "creating themes directory..."
 mkdir /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
-echo -e "copying over uitoux base theme..."
-cp -R /home/"$username"/"$sitename"/httpdocs/sites/all/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
+
+echo -e "which theme do you want? (enter full theme name):"
+n=1
+for i in $(ls templates/themes/); do
+  echo $n")" $i
+  ((n++))
+done
+
+echo -e "\n"
+read userTheme
+
+case $userTheme in
+  '1')
+    echo -e "copying awpurology theme..."
+    cp -R "$DIR"/templates/themes/awpurology /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
+    ;;
+  *)
+    echo "enter a valid thene name: "
+    ;;
+esac
+
 echo -e "changing uitoux base theme name to suit subtheme..."
-mv /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site" > /dev/null 2> /home/"$username"/errors.log
+mv /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$userTheme" /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site" > /dev/null 2> /home/"$username"/errors.log
 echo -e "renaming info file within subtheme..."
-rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
+rename -v 's/'"$userTheme"'/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
 
 cp "$DIR"/templates/js_template.js /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
 
