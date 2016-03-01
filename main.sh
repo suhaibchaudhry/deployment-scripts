@@ -26,7 +26,7 @@ do
   echo -e "2) install memcached"
   echo -e "3) update/upgrade server"
   echo -e "4) fork a website"
-  echo -e "5) backup database (under developement)"
+  echo -e "5) backup database"
   read todo
 
   case $todo in
@@ -47,7 +47,7 @@ do
       ;;
     '5')
       echo -e "launching database dump...\n"
-      echo -e "under developement, check back again later! \n"
+      source db_dump.sh
       ;;
     *)
       echo "y for memcached or n for regular server installation: "

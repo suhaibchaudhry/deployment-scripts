@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 echo -e "installing memcached... \c"
 apt-get install memcached -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"

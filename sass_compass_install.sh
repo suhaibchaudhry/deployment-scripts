@@ -1,4 +1,6 @@
 #!/bin/bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 echo -e "adding brightbox/ruby ppa... \c"
 apt-add-repository ppa:brightbox/ruby-ng -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
