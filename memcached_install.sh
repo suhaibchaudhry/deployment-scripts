@@ -26,7 +26,7 @@ echo -e "done!"
 echo -e "making temporary memcached directory... \c"
 cd ~ && mkdir memcached_tmp && cd memcached_tmp > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "dowlnoad memcached... \c"
+echo -e "download memcached... \c"
 pecl download memcached > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "extract memcached... \c"
