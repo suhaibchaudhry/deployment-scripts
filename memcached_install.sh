@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-echo -e "installing memcached... \c"
+echo -e "installing memcached package... \c"
 apt-get install memcached -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing php5 dev... \c"
