@@ -12,6 +12,7 @@ sitename="$site.com"
 
 echo -e "setting site root directory..."
 rootdir="/home/$username/$sitename/httpdocs"
+echo -e "done!"
 
 echo -e "what password do you want to set for root: \c"
 read -s rootpassword
@@ -20,7 +21,7 @@ rootpass="$rootpassword"
 echo -e "\ndo you want to install memcached on the server (y/n): \c"
 read memcached
 
-echo -e "\ndo you want to install sass on the server (y/n): \c"
+echo -e "do you want to install sass on the server (y/n): \c"
 read sass_compass
 
 echo -e "what password do you want to set for "$username": \c"
@@ -145,12 +146,16 @@ echo -e "\n\n"
 
 echo -e "creating MYSQL database..."
 mysql --user="root" --password="$dbrootpass" -e "CREATE DATABASE $dbname" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "creating MYSQL user for specified database..."
 mysql --user="root" --password="$dbrootpass" -e "GRANT USAGE ON *.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpass'" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "granting privelages for user on database..."
 mysql --user="root" --password="$dbrootpass" -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "flushing privelages to reset users/databases..."
 mysql --user="root" --password="$dbrootpass" -e "FLUSH PRIVILEGES" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 
 echo -e "\n\n"
 
@@ -163,18 +168,18 @@ echo -e "done!"
 
 case $version in
   '1')
-    echo -e "downloading commerce kickstart..."
+    echo -e "downloading commerce kickstart...\c"
     drush dl commerce_kickstart --destination="/home/$username/$sitename/" > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
-    echo -e "changing folder name to httpdocs..."
+    echo -e "changing folder name to httpdocs...\c"
     mv /home/"$username"/"$sitename"/commerce* /home/"$username"/"$sitename"/httpdocs > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     ;;
   '2')
-    echo -e "downloading drupal 7 core..."
+    echo -e "downloading drupal 7 core...\c"
     drush dl drupal-7 --destination="/home/$username/$sitename/" > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
-    echo -e "changing folder name to httpdocs..."
+    echo -e "changing folder name to httpdocs...\c"
     mv /home/"$username"/"$sitename"/drupal* /home/"$username"/"$sitename"/httpdocs > /dev/null 2> /home/"$username"/errors.log
 		echo -e "done!"
     ;;
@@ -187,7 +192,7 @@ echo -e "owning httpdocs... \c"
 chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs
 echo -e "done!"
 echo -e "initialize git repo... \c"
-su "$username" -c 'git init /home/'"$username"'/'"$sitename"'/httpdocs'
+su "$username" -c 'git init /home/'"$username"'/'"$sitename"'/httpdocs' > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "configuring nginx.conf... \c"
 sed -i 's/www-data/'"$username"'/g' /etc/nginx/nginx.conf
@@ -230,37 +235,38 @@ echo -e "\n\n"
 
 echo -e "removing all files/folders inside all/themes..."
 rm -rf /home/"$username"/"$sitename"/httpdocs/sites/all/themes/* > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "getting ui to ux base theme..."
 git clone https://suhaib_uitoux:underwater908@bitbucket.org/uitouxteam/ui-to-ux-theme-kit.git /home/"$username"/"$sitename"/httpdocs/sites/all/themes/ > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
-echo -e "\n"
-
 echo -e "changing directory to run drush..."
 cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "running drush to install site..."
 drush site-install standard --account-name="$drupaluser" --account-pass="$drupalpass" --db-url=mysql://"$dbuser":"$dbpass"@localhost/"$dbname" -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "changing permissions for site folder..."
 chmod +w /home/"$username"/"$sitename"/httpdocs/sites/"$sitename" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "creating themes directory..."
 mkdir /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "copying over uitoux base theme..."
 cp -R /home/"$username"/"$sitename"/httpdocs/sites/all/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "changing uitoux base theme name to suit subtheme..."
 mv /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/uitoux_theme /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 echo -e "renaming info file within subtheme..."
 rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/*.* > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
 
 cp "$DIR"/templates/js_template.js /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
 
 sed -i 's/THEMENAME/'"$sitename"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/"$site"_custom.js
 
-echo -e "\n"
-
-echo -e "file changes"
-echo -e "------------------------------------------------------"
-
-echo -e "changing all uitoux occurrances to match sitename..."
+echo -e "changing all uitoux occurrances to match sitename...\c"
 
 sed -i 's/.*jquery_browser.*//g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
 sed -i 's/.*omega_formalize.*//g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info
@@ -274,24 +280,26 @@ sed -i 's/UI To UX Theme/'"$site"' Theme/g' /home/"$username"/"$sitename"/httpdo
 sed -i 's/UI To UX Base Theme/'"$site"' Theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
 sed -i 's/UI To UX Theme/'"$site"' Theme/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
 sed -i 's/package = '"$site"'/package = UI To UX/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/"$site".info > /dev/null 2> /home/"$username"/errors.log
-echo -e "changing all files within subdirectory to match sitename..."
+echo -e "done!"
+echo -e "changing all files within subdirectory to match sitename...\c"
 rename -v 's/uitoux-theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/css/*.* > /dev/null 2> /home/"$username"/errors.log
 rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/css/*.* > /dev/null 2> /home/"$username"/errors.log
 rename -v 's/uitoux-theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/scss/*.* > /dev/null 2> /home/"$username"/errors.log
 rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/scss/*.* > /dev/null 2> /home/"$username"/errors.log
 rename -v 's/uitoux_theme/'"$site"'/g' /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/js/*.* > /dev/null 2> /home/"$username"/errors.log
-echo -e "removing default.settings.php file..."
+echo -e "done!"
+echo -e "removing default.settings.php file...\c"
 rm /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/default.settings.php > /dev/null 2> /home/"$username"/errors.log
-echo -e "replacing template.php with empty template.php..."
+echo -e "done!"
+echo -e "replacing template.php with empty template.php...\c"
 rm /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/template.php > /dev/null 2> /home/"$username"/errors.log
 touch /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/themes/"$site"/template.php > /dev/null 2> /home/"$username"/errors.log
-echo -e "setting up new theme for first time use..."
+echo -e "done!"
+echo -e "setting up new theme for first time use...\c"
 cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
 drush pm-enable uitoux_theme -y > /dev/null 2> /home/"$username"/errors.log
 drush pm-enable "$site" -y > /dev/null 2> /home/"$username"/errors.log
 drush vset theme_default "$site" > /dev/null 2> /home/"$username"/errors.log
-
-echo -e "\n\n"
 echo -e "done!"
 
 echo -e "updating package list... \c"
@@ -307,8 +315,6 @@ echo -e "removing unutilized packages... \c"
 apt-get autoremove -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
-echo -e "\n\n"
-
 echo -e "restarting nginx... \c"
 service nginx restart > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
@@ -316,12 +322,13 @@ echo -e "restarting php5... \c"
 service php5-fpm restart > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
-echo -e "\n\n"
+echo -e "owning site folder... \c"
+chown -R "$username":"$username" /home/"$username"/"$sitename"/httpdocs/sites/
 
 case $memcached in
   'y')
     echo -e "installing memcached...\c"
-    source memcached_install.sh
+    source "$DIR"/memcached_install.sh
     ;;
   'n')
     ;;
@@ -330,12 +337,10 @@ case $memcached in
     ;;
 esac
 
-echo -e "\n\n"
-
 case $sass_compass in
   'y')
     echo -e "installing sass and compass...\c"
-    source sass_compass_install.sh
+    source "$DIR"/sass_compass_install.sh
     ;;
   'n')
     ;;
