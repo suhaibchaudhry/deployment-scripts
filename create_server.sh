@@ -224,6 +224,7 @@ su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sit
 echo -e "done!"
 echo -e "installing libraries module... \c"
 cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
+su "$username" -c 'drush dl libraries -y' > /dev/null 2> /home/"$username"/errors.log
 su "$username" -c 'drush en libraries -y' > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
