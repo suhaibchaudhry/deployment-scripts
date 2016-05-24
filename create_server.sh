@@ -222,11 +222,6 @@ echo -e "done!"
 echo -e "create symbolic link of "$sitename" and call it default... \c"
 su "$username" -c 'ln -s /home/'"$username"'/'"$sitename"'/httpdocs/sites/'"$sitename"' /home/'"$username"'/'"$sitename"'/httpdocs/sites/default'
 echo -e "done!"
-echo -e "installing libraries module... \c"
-cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
-su "$username" -c 'drush dl libraries -y' > /dev/null 2> /home/"$username"/errors.log
-su "$username" -c 'drush en libraries -y' > /dev/null 2> /home/"$username"/errors.log
-echo -e "done!"
 
 echo -e "removing all files/folders inside all/themes... \c"
 rm -rf /home/"$username"/"$sitename"/httpdocs/sites/all/themes/* > /dev/null 2> /home/"$username"/errors.log
@@ -295,6 +290,11 @@ cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /hom
 drush pm-enable uitoux_theme -y > /dev/null 2> /home/"$username"/errors.log
 drush pm-enable "$site" -y > /dev/null 2> /home/"$username"/errors.log
 drush vset theme_default "$site" > /dev/null 2> /home/"$username"/errors.log
+echo -e "done!"
+echo -e "installing libraries module... \c"
+cd /home/"$username"/"$sitename"/httpdocs/sites/"$sitename"/ > /dev/null 2> /home/"$username"/errors.log
+su "$username" -c 'drush dl libraries -y' > /dev/null 2> /home/"$username"/errors.log
+su "$username" -c 'drush en libraries -y' > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "updating package list... \c"
