@@ -85,12 +85,18 @@ echo -e "done!"
 echo -e "installing nginx... \c"
 apt-get install nginx -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "installing key for percona... \c"
-apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A  > /dev/null 2> /home/"$username"/errors.log
+#echo -e "installing key for percona... \c"
+#apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A  > /dev/null 2> /home/"$username"/errors.log
+#echo -e "done!"
+#echo -e "adding repo to sources list... \c"
+#echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
+#echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
+#echo -e "done!"
+echo -e "fetching percona... \c"
+wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "adding repo to sources list... \c"
-echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
-echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
+echo -e "installing percona... \c"
+dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "updating package list... \c"
 apt-get update -y > /dev/null 2> /home/"$username"/errors.log
@@ -123,6 +129,8 @@ echo -e "installing php5... \c"
 apt-get install php5-fpm -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "setting preconfigured inputs for phpmyadmin... \c"
+debconf-set-selections <<< "phpmyadmin phpmyadmin/setup-password password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
+debconf-set-selections <<< "phpmyadmin phpmyadmin/password-confirm password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
 debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true" > /dev/null 2> /home/"$username"/errors.log
 debconf-set-selections <<< "phpmyadmin phpmyadmin/app-password-confirm password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
 debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
