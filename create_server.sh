@@ -125,8 +125,8 @@ echo -e "done!"
 echo -e "change root password for percona... \c"
 echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$dbrootpass');" | mysql -uroot > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "installing php5... \c"
-apt-get install php5-fpm -y > /dev/null 2> /home/"$username"/errors.log
+echo -e "installing php... \c"
+apt-get install php-fpm -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "setting preconfigured inputs for phpmyadmin... \c"
 debconf-set-selections <<< "phpmyadmin phpmyadmin/setup-password password $dbrootpass" > /dev/null 2> /home/"$username"/errors.log
@@ -144,10 +144,10 @@ echo -e "installing drush... \c"
 apt-get install drush -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "enabling mcrypt... \c"
-php5enmod mcrypt > /dev/null 2> /home/"$username"/errors.log
+phpenmod mcrypt > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 echo -e "installing php5 curl... \c"
-apt-get install php5-curl -y > /dev/null 2> /home/"$username"/errors.log
+apt-get install php-curl -y > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "creating MYSQL database... \c"
@@ -217,9 +217,8 @@ echo -e "configuring "$sitename" file... \c"
 sed -i 's/$site_domain/'"$sitename"'/g' /etc/nginx/sites-enabled/"$sitename"
 sed -i 's#$site_root#'"$rootdir"'#g' /etc/nginx/sites-enabled/"$sitename"
 echo -e "done!"
-echo -e "configuring php5... \c"
-sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/pool.d/www.conf
-sed -i 's/www-data/'"$username"'/g' /etc/php5/fpm/php-fpm.conf
+echo -e "configuring php... \c"
+sed -i 's/www-data/'"$username"'/g' /etc/php/7.0/fpm/pool.d/www.conf
 echo -e "done!"
 echo -e "creating link to phpmyadmin in httpdocs... \c"
 su "$username" -c 'ln -s /usr/share/phpmyadmin /home/'"$username"'/'"$sitename"'/httpdocs'
@@ -321,8 +320,8 @@ echo -e "done!"
 echo -e "restarting nginx... \c"
 service nginx restart > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
-echo -e "restarting php5... \c"
-service php5-fpm restart > /dev/null 2> /home/"$username"/errors.log
+echo -e "restarting php... \c"
+service php7.0-fpm restart > /dev/null 2> /home/"$username"/errors.log
 echo -e "done!"
 
 echo -e "owning site folder... \c"
